@@ -1,18 +1,27 @@
 package Zoologico;
 
 public class Empleado extends Usuario{
-    long rfc;
-    float salario;
-    String horario;
-    String rol;
+    long RFC;
+    float salary;
+    String startTime;
+    String endTime;
+    String entryMonth;
+    String entryDay;
+    String entryYear;
 
-    public Empleado(String nombre, String apellidos, String diaDeNacimiento, String mesDeNacimiento,
-            String añoDeNacimiento, String curp, long rfc, float salario, String horario, String rol) {
-        super(nombre, apellidos, diaDeNacimiento, mesDeNacimiento, añoDeNacimiento, curp);
-        this.rfc = rfc;
-        this.salario = salario;
-        this.horario = horario;
-        this.rol = rol;
+    String role;
+
+    public Empleado(String name, String lastName, String birthDay, String birthMonth,String birthYear,
+                    String entryMonth,
+                    String entryDay, String entryYear,long RFC, String CURP,float salary,
+                    String startTime,String endTime,String role) {
+
+        super(name, lastName, birthDay, birthMonth, birthYear, CURP);
+        this.RFC = RFC;
+        this.salary = salary;
+        this.startTime=startTime;
+        this.endTime=endTime;
+        this.role = role;
     }
 
 }
