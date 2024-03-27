@@ -35,7 +35,7 @@ public class Sistema {
 
                 case 4:
                         System.out.println("\nYou selected register an animal");
-                        zoo.
+                        zoo.s
                         break;
 
                 case 5:
