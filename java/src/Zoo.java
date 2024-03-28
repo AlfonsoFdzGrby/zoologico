@@ -65,10 +65,10 @@ public class Zoo {
         String endTime = scanner.nextLine();
 
         System.out.println("Please enter your role (Veterinarian, Guide, Maintenance, Administration): ");
-        System.out.print("Role: ");
         String role;
 
         while(true){
+            System.out.print("Role: ");
             role = scanner.nextLine();
             if(role.equalsIgnoreCase("veterinarian") || role.equalsIgnoreCase("guide") || role.equalsIgnoreCase("administration") || role.equalsIgnoreCase("maintenance")){
                 break;
@@ -286,6 +286,7 @@ public class Zoo {
         System.out.println("6. Schedule");
         System.out.println("7. Role");
         System.out.println("8. Nothing (return to main menu)");
+        System.out.print(">> ");
 
         int option = scanner.nextInt();
 
@@ -298,7 +299,7 @@ public class Zoo {
                 System.out.print("Last Name: ");
                 String newLastName = scanner.nextLine();
                 employee.setNames(newFirstName, newLastName);
-                System.out.println("The employee's names have been succesfully changed!");
+                System.out.println("The employee's names were succesfully changed!");
                 employeeList.add(employee); // Y SE VUELVE a ANEXAR a la employeeList
                 returnToMainMenu();
                 break;
@@ -307,21 +308,67 @@ public class Zoo {
                 LocalDate birthDate = askForDate();
                 employee.setBirthDate(birthDate);
                 employeeList.add(employee);
+                System.out.println("The employee's birth date was succesfully changed!");
+                returnToMainMenu();
                 break;
             case 3: //CURP
                 System.out.println("Please enter the new CURP");
+                System.out.print("CURP: ");
+                String CURP = scanner.nextLine();
+                employee.setCURP(CURP);
+                employeeList.add(employee);
+                System.out.println("The employee's CURP was succesfully changed!");
+                returnToMainMenu();
                 break;
             case 4: //RFC
-                
+                System.out.println("Please enter the new RFC");
+                System.out.print("RFC: ");
+                int RFC = scanner.nextInt();
+                employee.setRFC(RFC);
+                employeeList.add(employee);
+                System.out.println("The employee's RFC was succesfully changed!");
+                returnToMainMenu();
                 break;
             case 5: //Salary
-                
+                System.out.println("Please enter the new salary");
+                System.out.print("Salary: ");
+                float salary = scanner.nextFloat();
+                scanner.nextLine();
+                employee.setSalary(salary);
+                employeeList.add(employee);
+                System.out.println("The employee's salary was succesfully changed!");
+                returnToMainMenu();
                 break;
             case 6: //Schedule
-                
+                System.out.println("Please enter your new schedule: ");
+                System.out.print("Enter your start time (e.g., 7:00 AM): ");
+                String startTime = scanner.nextLine();
+                System.out.print("Enter your end time (e.g., 2:00 PM): ");
+                String endTime = scanner.nextLine();
+                employee.setStartTime(startTime);
+                employee.setEndTime(endTime);
+                employeeList.add(employee);
+                System.out.println("The employee's schedule was succesfully changed!");
+                returnToMainMenu();
                 break;
             case 7: //Role
-                
+                System.out.println("Please enter your new role (Veterinarian, Guide, Maintenance, Administration): ");
+                String role="";
+
+                while(true){
+                    System.out.print("Role: ");
+                    role = scanner.nextLine();
+                    if(role.equalsIgnoreCase("veterinarian") || role.equalsIgnoreCase("guide") || role.equalsIgnoreCase("administration") || role.equalsIgnoreCase("maintenance")){
+                        break;
+                    }else{
+                        System.out.println("The specified role is not valid. Please enter a valid role:");
+                    }
+                }
+
+                employee.setRole(role);
+                employeeList.add(employee);
+                System.out.println("The employee's role was succesfully changed!");
+                returnToMainMenu();
                 break;
         
             default: //Return to main menu
@@ -331,6 +378,71 @@ public class Zoo {
                  * employeeList
                  */
                 employeeList.add(employee);
+                break;
+        }
+    }
+
+    public void modifyVisitor(){
+        System.out.println("Please enter the name of the visitor to modify: ");
+        String name, lastName;
+        Visitante visitor = null;
+
+        while(visitor==null){
+            System.out.println("First Name: ");
+            name = scanner.next();
+            System.out.println("Last Name: ");
+            lastName = scanner.next();
+            for (int i = 0; i < visitorList.size(); i++) {
+                if(name.equalsIgnoreCase(visitorList.get(i).getName()) && lastName.equalsIgnoreCase(visitorList.get(i).getLastName())){
+                    visitor = visitorList.get(i); // Guarda al visitante en UNA VARIABLE NUEVA
+                    visitList.remove(i); // ELIMINA al visitante de la visitorList
+                    System.out.println("Visitor found!");
+                    break;
+                }else{
+                    System.out.println("The entered visitor was not found. Please enter a valid visitor...");
+                }
+            }
+        }
+
+        System.out.println("What would you like to modify?");
+        System.out.println("1. First and Last Name");
+        System.out.println("2. Birth date");
+        System.out.println("3. CURP");
+        System.out.println("4. Return to main menu");
+        int option = scanner.nextInt();
+        System.out.print(">> ");
+
+        switch (option) {
+            case 1:
+                System.out.println("Please enter the visitor's new name: ");
+                System.out.print("First Name: ");
+                String newFirstName = scanner.nextLine();
+                System.out.print("Last Name: ");
+                String newLastName = scanner.nextLine();
+                visitor.setNames(newFirstName, newLastName);
+                System.out.println("The visitor's names were succesfully changed!");
+                visitorList.add(visitor); // Y SE VUELVE a ANEXAR a la visitorList
+                returnToMainMenu();
+                break;
+            case 2:
+                System.out.println("Please enter the new birth date (ONLY WITH NUMBERS)");
+                LocalDate birthDate = askForDate();
+                visitor.setBirthDate(birthDate);
+                visitorList.add(visitor);
+                System.out.println("The visitor's birth date was succesfully changed!");
+                returnToMainMenu();
+                break;
+            case 3:
+                System.out.println("Please enter the new CURP");
+                System.out.print("CURP: ");
+                String CURP = scanner.nextLine();
+                visitor.setCURP(CURP);
+                visitorList.add(visitor);
+                System.out.println("The visitor's CURP was succesfully changed!");
+                returnToMainMenu();
+                break;
+
+            default:
                 break;
         }
 

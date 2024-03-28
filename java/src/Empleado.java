@@ -39,5 +39,29 @@ public class Empleado extends Usuario{
     public void setBirthDate(LocalDate birthDate){
         this.birthDate = birthDate;
     }
+
+    public void setCURP(String curp){
+        this.CURP = curp;
+    }
+
+    public void setRFC(int rfc){
+        this.RFC = rfc;
+    }
+
+    public void setSalary(float salary){
+        this.salary = salary;
+    }
+
+    public void setStartTime(String start){
+        this.startTime = start;
+    }
     
+    public void setEndTime(String end){
+        this.endTime = end;
+    }
+    
+    public void setRole(String role) {
+        this.role = role;
+    }
+
 }

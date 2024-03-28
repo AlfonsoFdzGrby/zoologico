@@ -26,4 +26,17 @@ public class Visitante extends Usuario {
         return birthDate;
     }
 
+    public void setNames(String first, String last){
+        this.name = first;
+        this.lastName = last;
+    }
+
+    public void setBirthDate(LocalDate date){
+        this.birthDate = date;
+    }
+
+    public void setCURP(String curp){
+        this.CURP = curp;
+    }
+
 }
