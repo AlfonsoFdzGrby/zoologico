@@ -1,27 +1,23 @@
-
+import java.time.LocalDate;
 
 public class Empleado extends Usuario{
     long RFC;
     float salary;
     String startTime;
     String endTime;
-    String entryMonth;
-    String entryDay;
-    String entryYear;
-
+    LocalDate entryDate;
     String role;
-
-    public Empleado(String name, String lastName, String birthDay, String birthMonth,String birthYear,
-                    String entryMonth,
-                    String entryDay, String entryYear,long RFC, String CURP,float salary,
-                    String startTime,String endTime,String role) {
-
-        super(name, lastName, birthDay, birthMonth, birthYear, CURP);
-        this.RFC = RFC;
+    
+    public Empleado(String name, String lastName, LocalDate birthDate, String cURP, long rFC, float salary,
+            String startTime, String endTime, LocalDate entryDate, String role) {
+        super(name, lastName, birthDate, cURP);
+        RFC = rFC;
         this.salary = salary;
-        this.startTime=startTime;
-        this.endTime=endTime;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.entryDate = entryDate;
         this.role = role;
     }
 
+    
 }

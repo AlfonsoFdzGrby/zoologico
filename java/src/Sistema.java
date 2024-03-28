@@ -1,10 +1,17 @@
-
 import java.util.Scanner;
 public class Sistema {
     private Scanner scanner = new Scanner(System.in);
-    private Zoo zoo=new Zoo();
+    private Zoo zoo = new Zoo();
+
+    public void printHeader(String header){
+        System.out.println("#################################################");
+        System.out.println(header);
+        System.out.println("#################################################");
+    }
+
     public void runProgram(){
-        System.out.println("\n*****WELCOME TO THE ZOO*****");
+        printHeader("WELCOME TO THE ZOO");
+
         int option=0;
 
         do {
@@ -20,28 +27,27 @@ public class Sistema {
 
             switch (option){
                 case 1:
-                        System.out.println("\nYou selected register an employee");
+                        printHeader("REGISTER EMPLOYEE");
                         zoo.registerEmployee();
                         break;
 
                 case 2:
-                        System.out.println("\nYou selected register a visitor");
+                        printHeader("REGISTER A VISITOR");
                         zoo.registerVisitor();
                         break;
                 case 3:
-                        System.out.println("\nYou selected register a visit");
+                        printHeader("REGISTER VISIT");
                         zoo.registerVisit();
                         break;
 
                 case 4:
-                        System.out.println("\nYou selected register an animal");
+                        printHeader("REGISTER ANIMAL");
                         // TODO: registerAnimal 
                         // zoo.registerAnimal();
                         break;
 
                 case 5:
-                        System.out.println("\nYou selected modify (Employee, visitor, or animal)");
-
+                        printHeader("MODIFY (Employee, Visitor or Animal)");
                         break;
 
             }
