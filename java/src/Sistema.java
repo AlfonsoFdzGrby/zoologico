@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.Scanner;
 public class Sistema {
     private Scanner scanner = new Scanner(System.in);
@@ -13,6 +14,8 @@ public class Sistema {
         int option=0;
 
         do {
+            zoo.setToEmpList(new Empleado("Jorge", "Puebla", LocalDate.of(2000, 2, 23), "PBJ000223HMNXXXXXX", 123456, 12000, "7:00 AM", "2:00 PM", LocalDate.of(2020, 2, 25), "Guide"));
+            zoo.setToVisitorList(new Visitante("Paquito", "El Chato", LocalDate.of(2000, 02, 15), "CURPCHINGONAXD", LocalDate.of(2020, 12, 15)));
             printHeader("WELCOME TO THE ZOO");
             System.out.println("1. Register employee");
             System.out.println("2. Register visitor");
@@ -21,7 +24,8 @@ public class Sistema {
             System.out.println("5. Modify (Employee, visitor, or animal)");
             System.out.println("6. Delete (Employee, visitor, or animal)");
             System.out.println("7. Consult (Employee, visitor or animal)");
-            System.out.println("8.  Exit\n");
+            System.out.println("8. Exit");
+            System.out.print(">> ");
             option=scanner.nextInt();
 
             switch (option){
