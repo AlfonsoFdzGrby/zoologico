@@ -4,17 +4,16 @@ public class Sistema {
     private Zoo zoo = new Zoo();
 
     public void printHeader(String header){
-        System.out.println("#################################################");
+        System.out.println("==================================================");
         System.out.println(header);
-        System.out.println("#################################################");
+        System.out.println("==================================================");
     }
 
     public void runProgram(){
-        printHeader("WELCOME TO THE ZOO");
-
         int option=0;
 
         do {
+            printHeader("WELCOME TO THE ZOO");
             System.out.println("1. Register employee");
             System.out.println("2. Register visitor");
             System.out.println("3. Register visit");

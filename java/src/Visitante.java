@@ -13,4 +13,13 @@ public class Visitante extends Usuario {
     public void añadirVisita(){
         numVisitas++;
     }
+
+    public String getName(){
+        return name;
+    }
+
+    public LocalDate getbirthDate(){
+        return birthDate;
+    }
+
 }

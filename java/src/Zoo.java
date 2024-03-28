@@ -2,9 +2,15 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Zoo {
-    Scanner scanner=new Scanner(System.in);
-    private ArrayList<Empleado> employeeList=new ArrayList<>();
-    private ArrayList<Visitante> visitorList=new ArrayList<>();
+    private static Scanner scanner=new Scanner(System.in);
+    private ArrayList<Empleado> employeeList = new ArrayList<>();
+    private ArrayList<Visitante> visitorList = new ArrayList<>();
+    private ArrayList<Visita> visitList = new ArrayList<>();
+
+    public static void returnToMainMenu(){
+        System.out.println("Press enter to return to main menu...");
+        scanner.nextLine();
+    }
 
     public void registerEmployee(){
         System.out.println("Name: ");
@@ -43,6 +49,7 @@ public class Zoo {
         System.out.println("Schedule...");
         System.out.print("Enter your start time (e.g., 7:00 AM): ");
         String startTime = scanner.nextLine();
+        scanner.nextLine();
         System.out.print("Enter your end time (e.g., 2:00 PM): ");
         String endTime = scanner.nextLine();
 
@@ -51,7 +58,7 @@ public class Zoo {
 
         while(true){
             role = scanner.nextLine();
-            if(role.equalsIgnoreCase("veterinarian") || role.equalsIgnoreCase("guide") || role.equalsIgnoreCase("administration")){
+            if(role.equalsIgnoreCase("veterinarian") || role.equalsIgnoreCase("guide") || role.equalsIgnoreCase("administration") || role.equalsIgnoreCase("maintenance")){
                 break;
             }else{
                 System.out.println("The specified role is not valid. Please enter a valid role:");
@@ -61,6 +68,7 @@ public class Zoo {
         employeeList.add(new Empleado(name, lastName, birthDate, CURP, RFC, salary, startTime, endTime, entryDate, role));
 
         System.out.println("The employee has been successfully registered!");
+        returnToMainMenu();
     }
 
     public void registerVisitor(){
@@ -94,21 +102,69 @@ public class Zoo {
 
         visitorList.add(new Visitante(name, lastName, birthDate, CURP, registerDate));
         System.out.println("The visitor has been successfully registered!");
+        returnToMainMenu();
     }
 
     public void registerVisit(){
-        System.out.println("Name of guide in charge: ");
-        String name = scanner.next();
+        ArrayList<Visitante> visitorsInVisit = new ArrayList<>();
 
-        System.out.println("How many visitors are going to visit?");
-        int numberVisitors=scanner.nextInt();
+        System.out.println("Please enter the date of the visit: ");
 
-        for (int i = 0; i < numberVisitors; i++) {
+        System.out.println("Month: ");
+        int Month = scanner.nextInt();
+        System.out.println("Day: ");
+        int Day = scanner.nextInt();
+        System.out.println("Year: ");
+        int Year = scanner.nextInt();
 
+        LocalDate visitDate = LocalDate.of(Year, Month, Day);
+
+        System.out.println("Please enter the name of guide in charge: ");
+        String guideName = scanner.next();
+
+        Empleado guide = null;
+
+        while(guide==null){
+            for (int i = 0; i < employeeList.size(); i++) {
+                if(guideName.equalsIgnoreCase(employeeList.get(i).getName())){
+                    guide = employeeList.get(i);
+                    if(guide.getRole().equalsIgnoreCase("guide")){
+                        System.out.println("The employee was found and will now be guide");
+                        break;
+                    }else{
+                        System.out.println("The employee was found but is not a guide!");
+                        System.out.println("Please enter a valid guide");
+                        guide = null;
+                    }
+                }
+            }
         }
 
+        System.out.println("Please enter the visitors that will participate:");
+        System.out.println("Type and enter 'exit' when every user has been registered");
+        Visitante visitor = null;
+        String visitorName = "";
 
-        System.out.println("A visit has been successfully registered!");
+        while(visitorName.equalsIgnoreCase("exit")){
+            boolean found = false;
+            visitorName = scanner.nextLine();
+            for (int i = 0; i < visitorList.size(); i++) {
+                if(visitorName.equalsIgnoreCase(visitorList.get(i).getName())){
+                    visitor = visitorList.get(i);
+                    System.out.println("User found! User registered!");
+                    visitorsInVisit.add(visitor);
+                    found = true;
+                    break;
+                }
+            }
+            if(!found){
+                System.out.println("The user was not found. Please enter a valid user");
+            }
+        }
+
+        visitList.add(new Visita(guide, visitorsInVisit, visitDate));
+
+        System.out.println("A visit has been successfully booked!");
+        returnToMainMenu();
     }
-
 }
