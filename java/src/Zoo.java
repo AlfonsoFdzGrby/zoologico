@@ -21,6 +21,20 @@ public class Zoo {
         System.out.println("Press enter to return to main menu...");
         scanner.nextLine();
     }
+    
+    public LocalDate askForDate(){
+        System.out.print("Month: ");
+        int month = scanner.nextInt();
+        System.out.print("Day: ");
+        int day = scanner.nextInt();
+        System.out.print("Year: ");
+        int year = scanner.nextInt();
+        scanner.nextLine();
+
+        LocalDate date = LocalDate.of(year, month, day);
+
+        return date;
+    }
 
     public void registerEmployee(){
         System.out.println("Please enter your personal data");
@@ -30,25 +44,10 @@ public class Zoo {
         String lastName=scanner.next();
 
         System.out.println("Please enter your birth date (ONLY WITH NUMBERS)");
-        System.out.print("Month: ");
-        int birthMonth=scanner.nextInt();
-        System.out.print("Day: ");
-        int birthDay=scanner.nextInt();
-        System.out.print("Year: ");
-        int birthYear=scanner.nextInt();
-        scanner.nextLine();
-
-        LocalDate birthDate = LocalDate.of(birthYear, birthMonth, birthDay);
+        LocalDate birthDate = askForDate();
 
         System.out.println("Please enter your registration date (ONLY WITH NUMBERS)");
-        System.out.print("Month: ");
-        int entryMonth=scanner.nextInt();
-        System.out.print("Day: ");
-        int entryDay=scanner.nextInt();
-        System.out.print("Year: ");
-        int entryYear=scanner.nextInt();
-
-        LocalDate entryDate = LocalDate.of(entryYear, entryMonth, entryDay);
+        LocalDate entryDate = askForDate();
 
         System.out.println("Please enter your finantial and legal data:");
         System.out.print("RFC: ");
@@ -92,28 +91,14 @@ public class Zoo {
         String lastName=scanner.next();
 
         System.out.println("Please enter your birth date (ONLY WITH NUMBERS)");
-        System.out.print("Month: ");
-        int birthMonth = scanner.nextInt();
-        System.out.print("Day: ");
-        int birthDay = scanner.nextInt();
-        System.out.print("Year: ");
-        int birthYear = scanner.nextInt();
-
-        LocalDate birthDate = LocalDate.of(birthYear, birthMonth, birthDay);
+        LocalDate birthDate = askForDate();
 
         System.out.println("Please enter your legal data:");
         System.out.print("CURP: ");
         String CURP=scanner.next();
 
         System.out.println("Please enter your registration date (ONLY WITH NUMBERS)");
-        System.out.print("Month: ");
-        int registerMonth=scanner.nextInt();
-        System.out.print("Day: ");
-        int registerDay=scanner.nextInt();
-        System.out.print("Year: ");
-        int registerYear=scanner.nextInt();
-
-        LocalDate registerDate = LocalDate.of(registerYear, registerMonth, registerDay);
+        LocalDate registerDate = askForDate();
 
         visitorList.add(new Visitante(name, lastName, birthDate, CURP, registerDate));
         System.out.println("The visitor has been successfully registered!");
@@ -124,26 +109,20 @@ public class Zoo {
         ArrayList<Visitante> visitorsInVisit = new ArrayList<>();
 
         System.out.println("Please enter the date of the visit: ");
-
-        System.out.print("Month: ");
-        int Month = scanner.nextInt();
-        System.out.print("Day: ");
-        int Day = scanner.nextInt();
-        System.out.print("Year: ");
-        int Year = scanner.nextInt();
-
-        LocalDate visitDate = LocalDate.of(Year, Month, Day);
+        LocalDate visitDate = askForDate();
 
         System.out.println("Please enter the name of guide in charge: ");
-        String guideName;
+        String guideFirstName, guideLastName;
 
         Empleado guide = null;
 
         while(guide==null){
-            System.out.println("Guide: ");
-            guideName = scanner.next();
+            System.out.print("First Name: ");
+            guideFirstName = scanner.nextLine();
+            System.out.print("Last Name: ");
+            guideLastName = scanner.nextLine();
             for (int i = 0; i < employeeList.size(); i++) {
-                if(guideName.equalsIgnoreCase(employeeList.get(i).getName())){
+                if(guideFirstName.equalsIgnoreCase(employeeList.get(i).getName()) && guideLastName.equalsIgnoreCase(employeeList.get(i).getLastName())){
                     guide = employeeList.get(i);
                     if(guide.getRole().equalsIgnoreCase("guide")){
                         System.out.println("The employee was found and will now be guide");
@@ -158,31 +137,35 @@ public class Zoo {
                 }
             }
         }
-        scanner.nextLine();
 
         System.out.println("Please enter the visitors that will participate:");
         System.out.println("Type and enter 'exit' when every user has been registered");
         Visitante visitor = null;
-        String visitorName = "";
+        String visitorFirstName = "", visitorLastName = "";
+        int visitNum = 1;
 
-        while(!visitorName.equalsIgnoreCase("exit")){
+        while(!visitorFirstName.equalsIgnoreCase("exit")){
+            System.out.println("Visitor #" + visitNum);
             boolean found = false;
-            System.out.print("Visitor: ");
-            visitorName = scanner.nextLine();
+            System.out.print("First Name: ");
+            visitorFirstName = scanner.nextLine();
+            if(visitorFirstName.equalsIgnoreCase("exit") || visitorLastName.equalsIgnoreCase("exit")){
+                System.out.println("All the visitors have been registered!");
+                break;
+            }
+            System.out.print("Last Name: ");
+            visitorLastName = scanner.nextLine();
             for (int i = 0; i < visitorList.size(); i++) {
-                if(visitorName.equalsIgnoreCase(visitorList.get(i).getName())){
+                if(visitorFirstName.equalsIgnoreCase(visitorList.get(i).getName()) && visitorLastName.equalsIgnoreCase(visitorList.get(i).getLastName())){
                     visitor = visitorList.get(i);
                     System.out.println("User found! User registered!");
                     visitorsInVisit.add(visitor);
                     found = true;
+                    visitNum++;
                     break;
                 }
             }
-            if(visitorName.equalsIgnoreCase("exit")){
-                System.out.println("All the visitors have been registered!");
-                break;
-            }
-            else if(!found){
+            if(!found){
                 System.out.println("The user was not found. Please enter a valid user");
             }
         }
@@ -200,25 +183,10 @@ public class Zoo {
         String kind = scanner.nextLine();
 
         System.out.println("Please enter the animal's birth date: (ONLY WITH NUMBERS)");
-        System.out.print("Month: ");
-        int birthMonth = scanner.nextInt();
-        System.out.print("Day: ");
-        int birthDay = scanner.nextInt();
-        System.out.print("Year: ");
-        int birthYear = scanner.nextInt();
-        scanner.nextLine();
-
-        LocalDate birthDate = LocalDate.of(birthYear, birthMonth, birthDay);
+        LocalDate birthDate = askForDate();
 
         System.out.println("Please enter the animal's arrival date: ");
-        System.out.print("Month: ");
-        int arrMonth=scanner.nextInt();
-        System.out.print("Day: ");
-        int arrDay=scanner.nextInt();
-        System.out.print("Year: ");
-        int arrYear=scanner.nextInt();
-
-        LocalDate arrivDate = LocalDate.of(arrYear, birthMonth, arrDay);
+        LocalDate arrivDate = askForDate();
 
         System.out.println("Please enter the animal's weight: ");
         System.out.print("Weight: ");
@@ -289,14 +257,16 @@ public class Zoo {
 
     public void modifyEmployee(){
         System.out.println("Please enter the name of the employee to modify: ");
-        String name;
+        String name, lastName;
         Empleado employee = null;
 
         while(employee==null){
-            System.out.println("Name: ");
+            System.out.println("First Name: ");
             name = scanner.next();
+            System.out.println("Last Name: ");
+            lastName = scanner.next();
             for (int i = 0; i < employeeList.size(); i++) {
-                if(name.equalsIgnoreCase(employeeList.get(i).getName())){
+                if(name.equalsIgnoreCase(employeeList.get(i).getName()) && lastName.equalsIgnoreCase(employeeList.get(i).getLastName())){
                     employee = employeeList.get(i); // Guarda al empleado en UNA VARIABLE NUEVA
                     employeeList.remove(i); // ELIMINA al empleado de la employeeList
                     System.out.println("Employee found!");
@@ -324,47 +294,37 @@ public class Zoo {
                 // Se modifican los atributos del empleado
                 System.out.println("Please enter the employee's new name: ");
                 System.out.print("First Name: ");
-                String firstName = scanner.nextLine();
+                String newFirstName = scanner.nextLine();
                 System.out.print("Last Name: ");
-                String lastName = scanner.nextLine();
-                employee.setNames(firstName, lastName);
+                String newLastName = scanner.nextLine();
+                employee.setNames(newFirstName, newLastName);
                 System.out.println("The employee's names have been succesfully changed!");
                 employeeList.add(employee); // Y SE VUELVE a ANEXAR a la employeeList
                 returnToMainMenu();
                 break;
             case 2:
                 System.out.println("Please enter the new birth date (ONLY WITH NUMBERS)");
-                System.out.print("Month: ");
-                int birthMonth=scanner.nextInt();
-                System.out.print("Day: ");
-                int birthDay=scanner.nextInt();
-                System.out.print("Year: ");
-                int birthYear=scanner.nextInt();
-                scanner.nextLine();
-        
-                LocalDate birthDate = LocalDate.of(birthYear, birthMonth, birthDay);
-
+                LocalDate birthDate = askForDate();
                 employee.setBirthDate(birthDate);
                 employeeList.add(employee);
-
                 break;
-            case 3:
+            case 3: //CURP
+                System.out.println("Please enter the new CURP");
+                break;
+            case 4: //RFC
                 
                 break;
-            case 4:
+            case 5: //Salary
                 
                 break;
-            case 5:
+            case 6: //Schedule
                 
                 break;
-            case 6:
-                
-                break;
-            case 7:
+            case 7: //Role
                 
                 break;
         
-            default:
+            default: //Return to main menu
                 /* Como en este caso no se le modifica nada al empleado no hay ninguna acción,
                  * PERO la employeeList no tiene al empleado porque fue eliminado desde el
                  * while(employee==null) (línea 301), así que se tiene que volver a anexar a la

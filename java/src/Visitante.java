@@ -18,6 +18,10 @@ public class Visitante extends Usuario {
         return name;
     }
 
+    public String getLastName(){
+        return lastName;
+    }
+
     public LocalDate getbirthDate(){
         return birthDate;
     }

@@ -23,6 +23,10 @@ public class Empleado extends Usuario{
         return name;
     }
 
+    public String getLastName(){
+        return lastName;
+    }
+
     public String getRole(){
         return role;
     }
