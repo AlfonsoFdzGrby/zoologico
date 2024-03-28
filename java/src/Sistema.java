@@ -45,12 +45,36 @@ public class Sistema {
 
                 case 4:
                         printHeader("REGISTER ANIMAL");
-                        // TODO: registerAnimal 
-                        // zoo.registerAnimal();
+                        zoo.registerAnimal();
                         break;
 
                 case 5:
                         printHeader("MODIFY (Employee, Visitor or Animal)");
+                        System.out.println("Please enter the element to modify: ");
+                        System.out.println("1. Employee");
+                        System.out.println("2. Visitor");
+                        System.out.println("3. Animal");
+                        System.out.println("4. Return to main menu");
+                        int subOption = scanner.nextInt();
+
+                        switch (subOption) {
+                                case 1:
+                                        //zoo.modifyEmployee();
+                                        break;
+
+                                case 2:
+                                        //zoo.modifyVisitor();
+                                        break;
+
+                                case 3:
+                                        //zoo.modifyAnimal();
+                                        break;
+                        
+                                default:
+                                        break;
+                        }
+
+                        //zoo.modify();
                         break;
 
             }

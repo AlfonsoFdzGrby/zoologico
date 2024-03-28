@@ -26,5 +26,14 @@ public class Empleado extends Usuario{
     public String getRole(){
         return role;
     }
+
+    public void setNames(String first, String last){
+        this.name = first;
+        this.lastName = last;
+    }
+
+    public void setBirthDate(LocalDate birthDate){
+        this.birthDate = birthDate;
+    }
     
 }
