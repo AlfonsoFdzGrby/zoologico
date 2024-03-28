@@ -1,4 +1,4 @@
-package Zoologico;
+
 import java.util.Scanner;
 public class Sistema {
     private Scanner scanner = new Scanner(System.in);
@@ -35,7 +35,8 @@ public class Sistema {
 
                 case 4:
                         System.out.println("\nYou selected register an animal");
-                        zoo.s
+                        // TODO: registerAnimal 
+                        // zoo.registerAnimal();
                         break;
 
                 case 5:

@@ -1,4 +1,4 @@
-package Zoologico;
+
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -79,12 +79,12 @@ public class Zoo {
         System.out.println("Year: ");
         String registerYear=scanner.next();
 
-        visitorList.add()
+        Visitante visitante = new Visitante(day, year, numberOfVisits, registerMonth, registerDay, CURP, registerYear);
+        visitorList.add(visitante);
         System.out.println("A visitor has been successfully registered!");
     }
 
     public void registerVisit(){
-        visit
         System.out.println("name of guide in charge: ");
         String name=scanner.next();
 

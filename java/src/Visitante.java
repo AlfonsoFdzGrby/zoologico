@@ -1,4 +1,4 @@
-package Zoologico;
+
 
 public class Visitante extends Usuario {
     int numVisitas;

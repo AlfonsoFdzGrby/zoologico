@@ -1,4 +1,4 @@
-package Zoologico;
+
 
 public class Empleado extends Usuario{
     long RFC;
