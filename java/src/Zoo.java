@@ -7,8 +7,100 @@ public class Zoo {
     private ArrayList<Visitante> visitorList = new ArrayList<>();
     private ArrayList<Visita> visitList = new ArrayList<>();
     private ArrayList<Animal> animalList = new ArrayList<>();
+    
+    public boolean yesOrNo(char option) {
+        boolean answer = false;
+        switch (Character.toLowerCase(option)) {
+            case 'y':
+                answer = true;
+                break;
+        
+            default:
+                break;
+        }
+        return answer;
+    }
 
-    //Estos métodos sólo los usé para pruebas. Los podemos quitar cuando entreguemos el proyecto:
+    public Empleado searchEmployee(boolean modify) {
+        System.out.println("Please enter the name of the employee: ");
+        String name, lastName;
+        Empleado employee = null;
+
+        while(employee==null){
+            System.out.print("First Name: ");
+            name = scanner.nextLine();
+            System.out.print("Last Name: ");
+            lastName = scanner.nextLine();
+            for (int i = 0; i < employeeList.size(); i++) {
+                if(name.equalsIgnoreCase(employeeList.get(i).getName()) && lastName.equalsIgnoreCase(employeeList.get(i).getLastName())){
+                    employee = employeeList.get(i);
+                    if(modify){
+                        employeeList.remove(i);
+                    }
+                    System.out.println("Employee found!");
+                    break;
+                }else{
+                    System.out.println("The entered employee was not found. Please enter a valid employee...");
+                }
+            }
+        }
+
+        return employee;
+    }
+    
+    public Animal searchAnimal(boolean modify){
+        Animal animal = null;
+        System.out.println("Please enter the animal's ID");
+        while (true) {
+            System.out.print("ID: ");
+            int id = scanner.nextInt();
+            scanner.nextLine();
+            for (int i = 0; i < animalList.size(); i++) {
+                if(animalList.get(i).getID()==id){
+                    animal = animalList.get(i);
+                    if(modify){
+                        animalList.remove(i);
+                    }
+                    System.out.println("The animal " + animal.getKind() +" was found!");
+                    break;
+                }
+            }
+            if(animal==null){
+                System.out.println("The animal was not found. Please enter a valid ID");
+            }else{
+                break;
+            }
+        }
+        return animal;
+    }
+
+    public Visitante searchVisitor(boolean modify){
+        System.out.println("Please enter the name of the visitor: ");
+        String name, lastName;
+        Visitante visitor = null;
+
+        while(visitor==null){
+            System.out.print("First Name: ");
+            name = scanner.nextLine();
+            System.out.print("Last Name: ");
+            lastName = scanner.nextLine();
+            for (int i = 0; i < visitorList.size(); i++) {
+                if(name.equalsIgnoreCase(visitorList.get(i).getName()) && lastName.equalsIgnoreCase(visitorList.get(i).getLastName())){
+                    visitor = visitorList.get(i); // Guarda al visitante en UNA VARIABLE NUEVA
+                    if(modify){
+                        visitorList.remove(i); // ELIMINA al visitante de la visitorList
+                    }
+                    System.out.println("Visitor found!");
+                    break;
+                }else{
+                    System.out.println("The entered visitor was not found. Please enter a valid visitor...");
+                }
+            }
+        }
+
+        return visitor;
+    }
+
     public void setToEmpList(Empleado emp){
         employeeList.add(emp);
     }
@@ -43,9 +135,9 @@ public class Zoo {
     public void registerEmployee(){
         System.out.println("Please enter your personal data");
         System.out.print("Name: ");
-        String name=scanner.next();
+        String name=scanner.nextLine();
         System.out.print("Last name: ");
-        String lastName=scanner.next();
+        String lastName=scanner.nextLine();
 
         System.out.println("Please enter your birth date (ONLY WITH NUMBERS)");
         LocalDate birthDate = askForDate();
@@ -57,7 +149,7 @@ public class Zoo {
         System.out.print("RFC: ");
         long RFC=scanner.nextLong();
         System.out.print("CURP: ");
-        String CURP=scanner.next();
+        String CURP=scanner.nextLine();
         System.out.print("Salary: ");
         float salary=scanner.nextFloat();
         scanner.nextLine();
@@ -90,16 +182,16 @@ public class Zoo {
     public void registerVisitor(){
         System.out.println("Please enter your personal data");
         System.out.print("Name: ");
-        String name=scanner.next();
+        String name=scanner.nextLine();
         System.out.print("Last name: ");
-        String lastName=scanner.next();
+        String lastName=scanner.nextLine();
 
         System.out.println("Please enter your birth date (ONLY WITH NUMBERS)");
         LocalDate birthDate = askForDate();
 
         System.out.println("Please enter your legal data:");
         System.out.print("CURP: ");
-        String CURP=scanner.next();
+        String CURP=scanner.nextLine();
 
         System.out.println("Please enter your registration date (ONLY WITH NUMBERS)");
         LocalDate registerDate = askForDate();
@@ -265,26 +357,7 @@ public class Zoo {
     */
 
     public void modifyEmployee(){
-        System.out.println("Please enter the name of the employee to modify: ");
-        String name, lastName;
-        Empleado employee = null;
-
-        while(employee==null){
-            System.out.print("First Name: ");
-            name = scanner.next();
-            System.out.print("Last Name: ");
-            lastName = scanner.next();
-            for (int i = 0; i < employeeList.size(); i++) {
-                if(name.equalsIgnoreCase(employeeList.get(i).getName()) && lastName.equalsIgnoreCase(employeeList.get(i).getLastName())){
-                    employee = employeeList.get(i); // Guarda al empleado en UNA VARIABLE NUEVA
-                    employeeList.remove(i); // ELIMINA al empleado de la employeeList
-                    System.out.println("Employee found!");
-                    break;
-                }else{
-                    System.out.println("The entered employee was not found. Please enter a valid employee...");
-                }
-            }
-        }
+        Empleado employee = searchEmployee(true);
 
         System.out.println("What would you like to modify?");
         System.out.println("1. First and Last Name");
@@ -298,6 +371,7 @@ public class Zoo {
         System.out.print(">> ");
 
         int option = scanner.nextInt();
+        scanner.nextLine();
 
         switch (option) {
             case 1:
@@ -333,6 +407,7 @@ public class Zoo {
                 System.out.println("Please enter the new RFC");
                 System.out.print("RFC: ");
                 int RFC = scanner.nextInt();
+                scanner.nextLine();
                 employee.setRFC(RFC);
                 employeeList.add(employee);
                 System.out.println("The employee's RFC was succesfully changed!");
@@ -392,34 +467,17 @@ public class Zoo {
     }
 
     public void modifyVisitor(){
-        System.out.println("Please enter the name of the visitor to modify: ");
-        String name, lastName;
-        Visitante visitor = null;
-
-        while(visitor==null){
-            System.out.print("First Name: ");
-            name = scanner.next();
-            System.out.print("Last Name: ");
-            lastName = scanner.next();
-            for (int i = 0; i < visitorList.size(); i++) {
-                if(name.equalsIgnoreCase(visitorList.get(i).getName()) && lastName.equalsIgnoreCase(visitorList.get(i).getLastName())){
-                    visitor = visitorList.get(i); // Guarda al visitante en UNA VARIABLE NUEVA
-                    visitList.remove(i); // ELIMINA al visitante de la visitorList
-                    System.out.println("Visitor found!");
-                    break;
-                }else{
-                    System.out.println("The entered visitor was not found. Please enter a valid visitor...");
-                }
-            }
-        }
+        Visitante visitor = searchVisitor(true);
 
         System.out.println("What would you like to modify?");
         System.out.println("1. First and Last Name");
         System.out.println("2. Birth date");
         System.out.println("3. CURP");
         System.out.println("4. Return to main menu");
-        int option = scanner.nextInt();
         System.out.print(">> ");
+        int option = scanner.nextInt();
+        scanner.nextLine();
+        
 
         switch (option) {
             case 1:
@@ -458,26 +516,7 @@ public class Zoo {
     }
 
     public void modifyAnimal(){
-        Animal animal = null;
-        while (true) {
-            System.out.println("Please enter the animal ID");
-            System.out.print("ID: ");
-            int id = scanner.nextInt();
-            for (int i = 0; i < animalList.size(); i++) {
-                if(animalList.get(i).getID()==id){
-                    animal = animalList.get(i);
-                    animalList.remove(i);
-                    System.out.println("The animal " + animal.getKind() +" was found!");
-                    break;
-                }
-            }
-            if(animal==null){
-                System.out.println("The animal was not found. Please enter a valid ID");
-            }else{
-                break;
-            }
-        }
-
+        Animal animal = searchAnimal(true);
         System.out.println("What would you like to modify?");
         System.out.println("1. Weight");
         System.out.println("2. Add diseases");
@@ -489,7 +528,6 @@ public class Zoo {
         System.out.print(">> ");
         int option = scanner.nextInt();
         scanner.nextLine();
-
         switch (option) {
             case 1:
                 System.out.println("Please enter the animal's new weight:");
@@ -531,6 +569,7 @@ public class Zoo {
                     while(true){
                         System.out.print("Disease ID: ");
                         ID = scanner.nextInt();
+                        scanner.nextLine();
                         if(ID>animal.getDiseaseList().size()){
                             System.out.println("Please enter a valid ID between 0 and " + animal.getDiseaseList().size());
                         }else{
@@ -614,79 +653,64 @@ public class Zoo {
     }
 
     public void consultEmployee(){
-        System.out.println("Please enter the name of the employee:");
-        String name, lastName;
-        Empleado employee = null;
-
-        while(employee==null){
-            System.out.print("First Name: ");
-            name = scanner.next();
-            System.out.print("Last Name: ");
-            lastName = scanner.next();
-            for (int i = 0; i < employeeList.size(); i++) {
-                if(name.equalsIgnoreCase(employeeList.get(i).getName()) && lastName.equalsIgnoreCase(employeeList.get(i).getLastName())){
-                    employee = employeeList.get(i);
-                    System.out.println("Employee found!");
-                    break;
-                }else{
-                    System.out.println("The entered employee was not found. Please enter a valid employee...");
-                }
-            }
-        }
-        scanner.nextLine();
-
+        Empleado employee = searchEmployee(false);
         System.out.println(employee.getName() + " " + employee.getLastName() + "'s data:");
         employee.getInfo();
         returnToMainMenu();
     }
 
     public void consultVisitor(){
-        System.out.println("Please enter the name of the visitor: ");
-        String name, lastName;
-        Visitante visitor = null;
-
-        while(visitor==null){
-            System.out.print("First Name: ");
-            name = scanner.next();
-            System.out.print("Last Name: ");
-            lastName = scanner.next();
-            for (int i = 0; i < visitorList.size(); i++) {
-                if(name.equalsIgnoreCase(visitorList.get(i).getName()) && lastName.equalsIgnoreCase(visitorList.get(i).getLastName())){
-                    visitor = visitorList.get(i);
-                    System.out.println("Visitor found!");
-                    break;
-                }else{
-                    System.out.println("The entered visitor was not found. Please enter a valid visitor...");
-                }
-            }
-        }
-        scanner.nextLine();
+        Visitante visitor = searchVisitor(false);
         System.out.println(visitor.getName() + " " + visitor.getLastName() + "'s data:");
         visitor.getInfo();
         returnToMainMenu();
     }
 
     public void consultAnimal(){
-        Animal animal = null;
-        while (true) {
-            System.out.println("Please enter the animal ID");
-            System.out.print("ID: ");
-            int id = scanner.nextInt();
-            for (int i = 0; i < animalList.size(); i++) {
-                if(animalList.get(i).getID()==id){
-                    animal = animalList.get(i);
-                    System.out.println("The animal " + animal.getKind() +" was found!");
-                    break;
-                }
-            }
-            if(animal==null){
-                System.out.println("The animal was not found. Please enter a valid ID");
-            }else{
-                break;
-            }
-        }
-        scanner.nextLine();
+        Animal animal = searchAnimal(false);
         animal.getInfo();
+        returnToMainMenu();
+    }
+
+    public void deleteEmployee(){
+        Empleado employee = searchEmployee(false);
+        System.out.println("Are you sure you want to delete this employee? (y/n)");
+        char option = scanner.nextLine().charAt(0);
+        boolean answer = yesOrNo(option);
+        if(answer){
+            employeeList.remove(employee);
+            System.out.println("The employee was succesfully deleted");
+        }else{
+            System.out.println("The employee was not deleted");
+        }
+        returnToMainMenu();
+    }
+
+    public void deleteVisitor(){
+        Visitante visitor = searchVisitor(false);
+        System.out.println("Are you sure you want to delete this visitor? (y/n)");
+        char option = scanner.nextLine().charAt(0);
+        boolean answer = yesOrNo(option);
+        if(answer){
+            visitorList.remove(visitor);
+            System.out.println("The visitor was succesfully removed");
+        }else{
+            System.out.println("The visitor was not deleted");
+        }
+        returnToMainMenu();
+    }
+
+    public void deleteAnimal(){
+        Animal animal = searchAnimal(false);
+        System.out.println("Are you sure you want to delete this animal");
+        char option = scanner.nextLine().charAt(0);
+        boolean answer = yesOrNo(option);
+        if(answer){
+            animalList.remove(animal);
+            System.out.println("The animal was succesfully removed");
+        }else{
+            System.out.println("The animal was not deleted");
+        }
         returnToMainMenu();
     }
 

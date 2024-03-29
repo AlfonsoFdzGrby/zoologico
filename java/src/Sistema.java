@@ -82,11 +82,36 @@ public class Sistema {
                         break;
                 
                 case 6:
+                        printHeader("DELETE (Employee, Visitor or Animal)");
+                        System.out.println("Please enter the element to delete");
+                        System.out.println("1. Employee");
+                        System.out.println("2. Visitor");
+                        System.out.println("3. Animal");
+                        System.out.println("4. Return to main menu");
+                        int subOption3 = scanner.nextInt();
+                        scanner.nextLine();
+
+                        switch (subOption3) {
+                                case 1:
+                                        zoo.deleteEmployee();
+                                        break;
+                        
+                                case 2:
+                                        zoo.deleteVisitor();
+                                        break;
+                        
+                                case 3:
+                                        zoo.deleteAnimal();
+                                        break;
+                        
+                                default:
+                                        break;
+                        }
                         break;
                 
                 case 7:
                         printHeader("CONSULT (Employee, Visitor or Animal)");
-                        System.out.println("Please enter the element to modify: ");
+                        System.out.println("Please enter the element to consult: ");
                         System.out.println("1. Employee");
                         System.out.println("2. Visitor");
                         System.out.println("3. Animal");
