@@ -11,12 +11,13 @@ public class Sistema {
     }
 
     public void runProgram(){
+        zoo.setToEmpList(new Empleado("Jorge", "Puebla", LocalDate.of(2000, 2, 23), "PBJ000223HMNXXXXXX", 123456, 12000, "7:00 AM", "2:00 PM", LocalDate.of(2020, 2, 25), "Guide"));
+        zoo.setToVisitorList(new Visitante("Paquito", "El Chato", LocalDate.of(2000, 02, 15), "CURPCHINGONAXD", LocalDate.of(2020, 12, 15)));
+        zoo.setToAnimalList(new Animal("Monkey", LocalDate.of(2010, 5, 25), LocalDate.of(2020, 2, 23), 25, null, "2 hours", "Vegetables and raw meat", false));
+        
         int option=0;
 
         do {
-            zoo.setToEmpList(new Empleado("Jorge", "Puebla", LocalDate.of(2000, 2, 23), "PBJ000223HMNXXXXXX", 123456, 12000, "7:00 AM", "2:00 PM", LocalDate.of(2020, 2, 25), "Guide"));
-            zoo.setToVisitorList(new Visitante("Paquito", "El Chato", LocalDate.of(2000, 02, 15), "CURPCHINGONAXD", LocalDate.of(2020, 12, 15)));
-            zoo.setToAnimalList(new Animal("Monkey", LocalDate.of(2010, 5, 25), LocalDate.of(2020, 2, 23), 25, null, "2 hours", "Vegetables and raw meat", false));
             printHeader("WELCOME TO THE ZOO");
             System.out.println("1. Register employee");
             System.out.println("2. Register visitor");
@@ -28,6 +29,7 @@ public class Sistema {
             System.out.println("8. Exit");
             System.out.print(">> ");
             option=scanner.nextInt();
+            scanner.nextLine();
 
             switch (option){
                 case 1:
@@ -57,6 +59,7 @@ public class Sistema {
                         System.out.println("3. Animal");
                         System.out.println("4. Return to main menu");
                         int subOption = scanner.nextInt();
+                        scanner.nextLine();
 
                         switch (subOption) {
                                 case 1:
@@ -89,10 +92,19 @@ public class Sistema {
                         System.out.println("3. Animal");
                         System.out.println("4. Return to main menu");
                         int subOption2 = scanner.nextInt();
+                        scanner.nextLine();
 
                         switch (subOption2) {
                                 case 1:
                                         zoo.consultEmployee();
+                                        break;
+                                
+                                case 2:
+                                        zoo.consultVisitor();
+                                        break;
+
+                                case 3:
+                                        zoo.consultAnimal();
                                         break;
                         
                                 default:

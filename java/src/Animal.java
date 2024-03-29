@@ -2,7 +2,8 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class Animal {
-    static int id = 0;
+    static int nextId = 0;
+    int id;
     String kind;
     LocalDate birthDate;
     LocalDate arrivalDate;
@@ -22,7 +23,8 @@ public class Animal {
         this.feedingFreq = feedingFreq;
         this.feedingType = feedingType;
         this.isVaccinated = isVaccinated;
-        id++;
+        id = nextId;
+        nextId++;
     }
 
     public int getID(){
@@ -38,7 +40,11 @@ public class Animal {
     }
 
     public void addDiseases(ArrayList<String> diseases){
-        this.diseases.addAll(diseases);
+        if(this.diseases!=null){
+            this.diseases.addAll(diseases);
+        }else{
+            this.diseases = diseases;
+        }
     }
     
     public ArrayList<String> getDiseaseList(){
@@ -60,4 +66,30 @@ public class Animal {
     public void setVaccineStatus(boolean status){
         this.isVaccinated = status;
     }
+
+    public void getInfo(){
+        System.out.println(" * ID: " + id);
+        System.out.println(" * Kind: " + kind);
+        System.out.println(" * Birth Date: " + birthDate.toString());
+        System.out.println(" * Arrival Date: " + arrivalDate.toString());
+        System.out.println(" * Weight: " + weight);
+
+        if(diseases==null){
+            System.out.println(" * No diseases");
+        }else{
+            System.out.println(" * Diseases:");
+            for (int i = 0; i < diseases.size(); i++) {
+                System.out.println("    * " + diseases.get(i));
+            }
+            System.out.println(" * Feeding Frequency: " + feedingFreq);
+            System.out.println(" * Feeding Type: " + feedingType);
+            if(isVaccinated){
+                System.out.println(" * Vaccinated: Yes");
+            }else{
+                System.out.println(" * Vaccinated: No");
+            }
+        }
+        
+    }
+
 }

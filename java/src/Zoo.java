@@ -209,6 +209,7 @@ public class Zoo {
                 break;
             }else{
                 diseaseList.add(disease);
+                diseaseNum++;
             }
         }
 
@@ -487,6 +488,7 @@ public class Zoo {
         System.out.println("7. Exit");
         System.out.print(">> ");
         int option = scanner.nextInt();
+        scanner.nextLine();
 
         switch (option) {
             case 1:
@@ -612,7 +614,7 @@ public class Zoo {
     }
 
     public void consultEmployee(){
-        System.out.println("Please enter the name of the employee ");
+        System.out.println("Please enter the name of the employee:");
         String name, lastName;
         Empleado employee = null;
 
@@ -639,7 +641,53 @@ public class Zoo {
     }
 
     public void consultVisitor(){
-        
+        System.out.println("Please enter the name of the visitor: ");
+        String name, lastName;
+        Visitante visitor = null;
+
+        while(visitor==null){
+            System.out.print("First Name: ");
+            name = scanner.next();
+            System.out.print("Last Name: ");
+            lastName = scanner.next();
+            for (int i = 0; i < visitorList.size(); i++) {
+                if(name.equalsIgnoreCase(visitorList.get(i).getName()) && lastName.equalsIgnoreCase(visitorList.get(i).getLastName())){
+                    visitor = visitorList.get(i);
+                    System.out.println("Visitor found!");
+                    break;
+                }else{
+                    System.out.println("The entered visitor was not found. Please enter a valid visitor...");
+                }
+            }
+        }
+        scanner.nextLine();
+        System.out.println(visitor.getName() + " " + visitor.getLastName() + "'s data:");
+        visitor.getInfo();
+        returnToMainMenu();
+    }
+
+    public void consultAnimal(){
+        Animal animal = null;
+        while (true) {
+            System.out.println("Please enter the animal ID");
+            System.out.print("ID: ");
+            int id = scanner.nextInt();
+            for (int i = 0; i < animalList.size(); i++) {
+                if(animalList.get(i).getID()==id){
+                    animal = animalList.get(i);
+                    System.out.println("The animal " + animal.getKind() +" was found!");
+                    break;
+                }
+            }
+            if(animal==null){
+                System.out.println("The animal was not found. Please enter a valid ID");
+            }else{
+                break;
+            }
+        }
+        scanner.nextLine();
+        animal.getInfo();
+        returnToMainMenu();
     }
 
 }

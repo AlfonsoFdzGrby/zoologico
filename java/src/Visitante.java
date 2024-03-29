@@ -39,4 +39,11 @@ public class Visitante extends Usuario {
         this.CURP = curp;
     }
 
+    public void getInfo(){
+        System.out.println(" * Name: " + name + " " + lastName);
+        System.out.println(" * Birth Date: " + birthDate.toString());
+        System.out.println(" * CURP: " + CURP);
+        System.out.println(" * Registration date: " + fechaDeRegistro.toString());
+    }
+
 }
