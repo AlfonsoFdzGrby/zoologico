@@ -17,6 +17,10 @@ public class Zoo {
         visitorList.add(vis);
     }
 
+    public void setToAnimalList(Animal animal){
+        animalList.add(animal);
+    }
+
     public static void returnToMainMenu(){
         System.out.println("Press enter to return to main menu...");
         scanner.nextLine();
@@ -201,6 +205,7 @@ public class Zoo {
             System.out.println(String.format("Disease #%d:", diseaseNum));
             disease = scanner.nextLine();
             if(disease.equalsIgnoreCase("exit")){
+                System.out.println("The diseases have been registered correctly!");
                 break;
             }else{
                 diseaseList.add(disease);
@@ -240,8 +245,11 @@ public class Zoo {
             }
         }
 
-        animalList.add(new Animal(kind, birthDate, arrivDate, weight, diseaseList, feedingFreq, feedingType, isVaccinated));
+        Animal animal = new Animal(kind, birthDate, arrivDate, weight, diseaseList, feedingFreq, feedingType, isVaccinated);
+        animalList.add(animal);
+
         System.out.println("The animal has been succesfully registered!");
+        System.out.println("ANIMAL'S ID: " + animal.getID());
         returnToMainMenu();
     }
 
@@ -261,9 +269,9 @@ public class Zoo {
         Empleado employee = null;
 
         while(employee==null){
-            System.out.println("First Name: ");
+            System.out.print("First Name: ");
             name = scanner.next();
-            System.out.println("Last Name: ");
+            System.out.print("Last Name: ");
             lastName = scanner.next();
             for (int i = 0; i < employeeList.size(); i++) {
                 if(name.equalsIgnoreCase(employeeList.get(i).getName()) && lastName.equalsIgnoreCase(employeeList.get(i).getLastName())){
@@ -388,9 +396,9 @@ public class Zoo {
         Visitante visitor = null;
 
         while(visitor==null){
-            System.out.println("First Name: ");
+            System.out.print("First Name: ");
             name = scanner.next();
-            System.out.println("Last Name: ");
+            System.out.print("Last Name: ");
             lastName = scanner.next();
             for (int i = 0; i < visitorList.size(); i++) {
                 if(name.equalsIgnoreCase(visitorList.get(i).getName()) && lastName.equalsIgnoreCase(visitorList.get(i).getLastName())){
@@ -447,4 +455,191 @@ public class Zoo {
         }
 
     }
+
+    public void modifyAnimal(){
+        Animal animal = null;
+        while (true) {
+            System.out.println("Please enter the animal ID");
+            System.out.print("ID: ");
+            int id = scanner.nextInt();
+            for (int i = 0; i < animalList.size(); i++) {
+                if(animalList.get(i).getID()==id){
+                    animal = animalList.get(i);
+                    animalList.remove(i);
+                    System.out.println("The animal " + animal.getKind() +" was found!");
+                    break;
+                }
+            }
+            if(animal==null){
+                System.out.println("The animal was not found. Please enter a valid ID");
+            }else{
+                break;
+            }
+        }
+
+        System.out.println("What would you like to modify?");
+        System.out.println("1. Weight");
+        System.out.println("2. Add diseases");
+        System.out.println("3. Remove diseases");
+        System.out.println("4. Feeding Frequency");
+        System.out.println("5. Feeding Type");
+        System.out.println("6. Vaccinated status");
+        System.out.println("7. Exit");
+        System.out.print(">> ");
+        int option = scanner.nextInt();
+
+        switch (option) {
+            case 1:
+                System.out.println("Please enter the animal's new weight:");
+                System.out.print("Weight: ");
+                float weight = scanner.nextFloat();
+                scanner.nextLine();
+                animal.setWeight(weight);
+                animalList.add(animal);
+                System.out.println("The animal's weight was successfully modified!");
+                returnToMainMenu();
+                break;
+        
+            case 2:
+                ArrayList<String> diseaseList = new ArrayList<>();
+                int diseaseID = 0;
+                System.out.println("Please enter the new diseases to add:");
+                System.out.println("Type 'exit' when finished...");
+                while(true){
+                    diseaseID++;
+                    System.out.print("Disease #" + diseaseID + ": ");
+                    String disease = scanner.nextLine();
+
+                    if(disease.equalsIgnoreCase("exit")){
+                        animal.addDiseases(diseaseList);
+                        System.out.println("The diseases have been succesfully registered!");
+                        returnToMainMenu();
+                        break;
+                    }
+                    diseaseList.add(disease);
+                }
+                animalList.add(animal);
+                break;
+        
+            case 3:
+                System.out.println("Please enter the disease ID to remove: ");
+                System.out.println("Type 'exit when finished...'");
+                int ID=0;
+
+                    while(true){
+                        System.out.print("Disease ID: ");
+                        ID = scanner.nextInt();
+                        if(ID>animal.getDiseaseList().size()){
+                            System.out.println("Please enter a valid ID between 0 and " + animal.getDiseaseList().size());
+                        }else{
+                            System.out.println("Disease " + ID + "found");
+                            String disease = animal.getDiseaseList().get(ID);
+                            System.out.println("Disease: " + disease);
+                            break;
+                        }
+                    }
+
+                    System.out.println("Are you sure you want to delete this disease? (y/n)");
+                    System.out.print(">> ");
+                    char opt = scanner.nextLine().charAt(0);
+
+                    switch (Character.toLowerCase(opt)) {
+                        case 'y':
+                            animal.getDiseaseList().remove(ID);
+                            System.out.println("The disease was deleted succesfully");
+                            break;
+                    
+                        default:
+                            System.out.println("The disease was not deleted");
+                            break;
+                    }
+                    animalList.add(animal);
+                    returnToMainMenu();
+                break;
+        
+            case 4: //Feeding Freq
+                System.out.println("Please enter the new feeding frequency of the animal:");
+                System.out.print("Must be fed every: ");
+                String feedFreq = scanner.nextLine();
+                animal.setFeedingFrequency(feedFreq);
+                animalList.add(animal);
+                System.out.println("The feeding frequency was succesfully modified!");
+                returnToMainMenu();
+                break;
+        
+            case 5:
+                System.out.println("Please enter the new feeding type for the animal:");
+                System.out.print("Feeding type: ");
+                String feedType = scanner.nextLine();
+                animal.setFeedingType(feedType);
+                animalList.add(animal);
+                System.out.println("The feeding type was succesfully modified!");
+                returnToMainMenu();
+                break;
+
+            case 6:
+                boolean success = false;
+                boolean vacStatus = false;
+                System.out.println("Please enter the new vaccination status (y/n):");
+                while (success) {
+                    System.out.print("Is the animal vaccinated? ");
+                    char vacStatusChar = scanner.nextLine().charAt(0);
+                    switch (Character.toLowerCase(vacStatusChar)) {
+                        case 'y':
+                            vacStatus = true;
+                            success = true;
+                            break;
+
+                        case 'n':
+                            success = true;
+                            break;
+                    
+                        default:
+                            System.out.println("The entered option is not valid. Please enter a valid option (y/n)");
+                            break;
+                    }
+                }
+                
+                animal.setVaccineStatus(vacStatus);
+                animalList.add(animal);
+                System.out.println("The vaccination status was succesfully modified!");
+                returnToMainMenu();
+                break;
+        
+            default:
+                break;
+        }
+    }
+
+    public void consultEmployee(){
+        System.out.println("Please enter the name of the employee ");
+        String name, lastName;
+        Empleado employee = null;
+
+        while(employee==null){
+            System.out.print("First Name: ");
+            name = scanner.next();
+            System.out.print("Last Name: ");
+            lastName = scanner.next();
+            for (int i = 0; i < employeeList.size(); i++) {
+                if(name.equalsIgnoreCase(employeeList.get(i).getName()) && lastName.equalsIgnoreCase(employeeList.get(i).getLastName())){
+                    employee = employeeList.get(i);
+                    System.out.println("Employee found!");
+                    break;
+                }else{
+                    System.out.println("The entered employee was not found. Please enter a valid employee...");
+                }
+            }
+        }
+        scanner.nextLine();
+
+        System.out.println(employee.getName() + " " + employee.getLastName() + "'s data:");
+        employee.getInfo();
+        returnToMainMenu();
+    }
+
+    public void consultVisitor(){
+        
+    }
+
 }

@@ -64,4 +64,17 @@ public class Empleado extends Usuario{
         this.role = role;
     }
 
+    public void getInfo(){
+        System.out.println(" * Name: " + name + " " + lastName);
+        System.out.println(" * Birth Date: " + birthDate.toString());
+        System.out.println(" * CURP: " + CURP);
+        System.out.println(" * RFC: " + RFC);
+        System.out.println(" * Salary: " + salary);
+        System.out.println(" * Schedule:");
+        System.out.println("     * Start time: " + startTime.toString());
+        System.out.println("     * End time: " + startTime.toString());
+        System.out.println(" * Entry date: " + entryDate.toString());
+        System.out.println(" * Role: " + role);
+    }
+
 }

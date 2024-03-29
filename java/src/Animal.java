@@ -22,6 +22,42 @@ public class Animal {
         this.feedingFreq = feedingFreq;
         this.feedingType = feedingType;
         this.isVaccinated = isVaccinated;
+        id++;
+    }
+
+    public int getID(){
+        return id;
+    }
+
+    public String getKind(){
+        return kind;
+    }
+
+    public void setWeight(float weight){
+        this.weight = weight;
+    }
+
+    public void addDiseases(ArrayList<String> diseases){
+        this.diseases.addAll(diseases);
     }
     
+    public ArrayList<String> getDiseaseList(){
+        return diseases;
+    }
+
+    public String getFeedingFrequency(){
+        return feedingFreq;
+    }
+
+    public void setFeedingFrequency(String freq){
+        this.feedingFreq = freq;
+    }
+
+    public void setFeedingType(String type){
+        this.feedingType = type;
+    }
+
+    public void setVaccineStatus(boolean status){
+        this.isVaccinated = status;
+    }
 }
