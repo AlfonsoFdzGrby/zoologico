@@ -64,6 +64,26 @@ public class Empleado extends Usuario{
         this.role = role;
     }
 
+    public LocalDate getBirthDate(){
+        return this.birthDate;
+    }
+
+    public String getCURP(){
+        return CURP;
+    }
+
+    public long getRFC(){
+        return RFC;
+    }
+
+    public float getSalary(){
+        return salary;
+    }
+
+    public String getSchedule(){
+        return "From " + startTime + " to " + endTime;
+    }
+
     public void getInfo(){
         System.out.println(" * Name: " + name + " " + lastName);
         System.out.println(" * Birth Date: " + birthDate.toString());

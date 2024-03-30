@@ -26,7 +26,7 @@ public class Zoo {
         String name, lastName;
         Empleado employee = null;
 
-        while(employee==null){
+        while(true){
             System.out.print("First Name: ");
             name = scanner.nextLine();
             System.out.print("Last Name: ");
@@ -39,9 +39,12 @@ public class Zoo {
                     }
                     System.out.println("Employee found!");
                     break;
-                }else{
-                    System.out.println("The entered employee was not found. Please enter a valid employee...");
                 }
+            }
+            if(employee==null){
+                System.out.println("The entered employee was not found. Please enter a valid employee...");
+            }else{
+                break;
             }
         }
 
@@ -134,7 +137,7 @@ public class Zoo {
 
     public void registerEmployee(){
         System.out.println("Please enter your personal data");
-        System.out.print("Name: ");
+        System.out.print("First Name: ");
         String name=scanner.nextLine();
         System.out.print("Last name: ");
         String lastName=scanner.nextLine();
@@ -147,7 +150,8 @@ public class Zoo {
 
         System.out.println("Please enter your finantial and legal data:");
         System.out.print("RFC: ");
-        long RFC=scanner.nextLong();
+        long RFC = scanner.nextLong();
+        scanner.nextLine();
         System.out.print("CURP: ");
         String CURP=scanner.nextLine();
         System.out.print("Salary: ");
@@ -181,7 +185,7 @@ public class Zoo {
 
     public void registerVisitor(){
         System.out.println("Please enter your personal data");
-        System.out.print("Name: ");
+        System.out.print("First Name: ");
         String name=scanner.nextLine();
         System.out.print("Last name: ");
         String lastName=scanner.nextLine();
@@ -212,7 +216,7 @@ public class Zoo {
 
         Empleado guide = null;
 
-        while(guide==null){
+        while(true){
             System.out.print("First Name: ");
             guideFirstName = scanner.nextLine();
             System.out.print("Last Name: ");
@@ -225,12 +229,14 @@ public class Zoo {
                         break;
                     }else{
                         System.out.println("The employee was found but is not a guide!");
-                        System.out.println("Please enter a valid guide");
                         guide = null;
                     }
-                }else{
-                    System.out.println("The entered employee was not found. Please enter a valid employee to be your guide...");
                 }
+            }
+            if(guide==null){
+                System.out.println("Please enter a valid guide...");
+            }else{
+                break;
             }
         }
 
@@ -284,7 +290,7 @@ public class Zoo {
         System.out.println("Please enter the animal's arrival date: ");
         LocalDate arrivDate = askForDate();
 
-        System.out.println("Please enter the animal's weight: ");
+        System.out.println("Please enter the animal's weight (in kg): ");
         System.out.print("Weight: ");
         float weight = scanner.nextFloat();
         scanner.nextLine(); //esto es solo para q java no se coma el enter (fokin objeto String está todo mal hecho)
@@ -376,6 +382,7 @@ public class Zoo {
         switch (option) {
             case 1:
                 // Se modifican los atributos del empleado
+                System.out.println("CURRENT NAME: " + employee.getName() + " " + employee.getLastName());
                 System.out.println("Please enter the employee's new name: ");
                 System.out.print("First Name: ");
                 String newFirstName = scanner.nextLine();
@@ -387,6 +394,7 @@ public class Zoo {
                 returnToMainMenu();
                 break;
             case 2:
+                System.out.println("CURRENT BIRTH DATE: " + employee.getBirthDate().toString());
                 System.out.println("Please enter the new birth date (ONLY WITH NUMBERS)");
                 LocalDate birthDate = askForDate();
                 employee.setBirthDate(birthDate);
@@ -395,6 +403,7 @@ public class Zoo {
                 returnToMainMenu();
                 break;
             case 3: //CURP
+                System.out.println("CURRENT CURP: " + employee.getCURP());
                 System.out.println("Please enter the new CURP");
                 System.out.print("CURP: ");
                 String CURP = scanner.nextLine();
@@ -404,6 +413,7 @@ public class Zoo {
                 returnToMainMenu();
                 break;
             case 4: //RFC
+                System.out.println("CURRENT RFC: " + employee.getRFC());
                 System.out.println("Please enter the new RFC");
                 System.out.print("RFC: ");
                 int RFC = scanner.nextInt();
@@ -414,6 +424,7 @@ public class Zoo {
                 returnToMainMenu();
                 break;
             case 5: //Salary
+                System.out.println("CURRENT SALARY: " + employee.getSalary());
                 System.out.println("Please enter the new salary");
                 System.out.print("Salary: ");
                 float salary = scanner.nextFloat();
@@ -424,6 +435,7 @@ public class Zoo {
                 returnToMainMenu();
                 break;
             case 6: //Schedule
+                System.out.println("CURRENT SCHEDULE: " + employee.getSchedule());
                 System.out.println("Please enter your new schedule: ");
                 System.out.print("Enter your start time (e.g., 7:00 AM): ");
                 String startTime = scanner.nextLine();
@@ -436,6 +448,7 @@ public class Zoo {
                 returnToMainMenu();
                 break;
             case 7: //Role
+                System.out.println("CURRENT ROLE: " + employee.getRole());
                 System.out.println("Please enter your new role (Veterinarian, Guide, Maintenance, Administration): ");
                 String role="";
 
@@ -510,6 +523,7 @@ public class Zoo {
                 break;
 
             default:
+                visitorList.add(visitor);
                 break;
         }
 
@@ -648,6 +662,7 @@ public class Zoo {
                 break;
         
             default:
+                animalList.add(animal);
                 break;
         }
     }
