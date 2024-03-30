@@ -84,6 +84,10 @@ public class Empleado extends Usuario{
         return "From " + startTime + " to " + endTime;
     }
 
+    public String getFullName(){
+        return name + " " + lastName;
+    }
+
     public void getInfo(){
         System.out.println(" * Name: " + name + " " + lastName);
         System.out.println(" * Birth Date: " + birthDate.toString());

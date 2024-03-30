@@ -82,7 +82,7 @@ public class Zoo {
         String name, lastName;
         Visitante visitor = null;
 
-        while(visitor==null){
+        while(true){
             System.out.print("First Name: ");
             name = scanner.nextLine();
             System.out.print("Last Name: ");
@@ -95,13 +95,43 @@ public class Zoo {
                     }
                     System.out.println("Visitor found!");
                     break;
-                }else{
-                    System.out.println("The entered visitor was not found. Please enter a valid visitor...");
                 }
             }
+            if(visitor==null){
+                System.out.println("The entered visitor was not found. Please enter a valid visitor...");
+            }else{
+                break;
+            }
         }
-
         return visitor;
+    }
+
+    //TO DO: ES NECESARIO AGREGAR UN ID A LAS VISITAS PARA PODER BUSCAR LA VISITA
+    public Visita searchVisit(boolean modify){
+        Visita visit = null;
+        System.out.println("Please enter the visit ID: ");
+        while (true) {
+            System.out.print("ID: ");
+            int id = scanner.nextInt();
+            scanner.nextLine();
+            for (int i = 0; i < visitList.size(); i++) {
+                if(id==visitList.get(i).getID()){
+                    visit = visitList.get(i);
+                    System.out.println("Visit found!");
+                    if(modify){
+                        visitList.remove(visit);
+                    }
+                    break;
+                }
+            }
+            if(visit == null){
+                System.out.println("The entered visit was not found. Please enter a valid visit ID...");
+            }else{
+                break;
+            }
+        }    
+        
+        return visit;
     }
 
     public void setToEmpList(Empleado emp){
@@ -667,6 +697,137 @@ public class Zoo {
         }
     }
 
+    public void modifyVisit(){
+        Visita visit = searchVisit(true);
+        System.out.println("What would you like to modify?");
+        System.out.println("1. Guide");
+        System.out.println("2. Visitors");
+        System.out.println("3. Visit Date");
+        System.out.println("4. Return to main menu");
+        System.out.print(">> ");
+        int option = scanner.nextInt();
+        scanner.nextLine();
+        switch (option) {
+            case 1:
+                Empleado guide = null, newGuide = null;
+                while(true){
+                    guide = searchEmployee(false);
+                    if(guide.getRole().equalsIgnoreCase("guide")){
+                        System.out.println("The entered employee IS a guide!");
+                        break;
+                    }else{
+                        System.out.println("The entered employee IS NOT a guide...");
+                        System.out.println("Please enter a valid employee");
+                    }                    
+                }
+
+                System.out.println("Please enter the name of the new guide:");
+                while(true){
+                    newGuide = searchEmployee(false);
+                    if(guide.getRole().equalsIgnoreCase("guide")){
+                        System.out.println("The entered employee IS a guide!");
+                        break;
+                    }else{
+                        System.out.println("The entered employee IS NOT a guide...");
+                        System.out.println("Please enter a valid employee");
+                    }   
+                }
+                
+                visit.setGuide(newGuide);
+                visitList.add(visit);
+                
+                System.out.println("The guide of visit #" + visit.getID() + "was succesfully modified!");
+                returnToMainMenu();
+                break;
+
+            case 2: //modificar visitantes
+                ArrayList<Visitante> newVisitors = new ArrayList<>();
+                System.out.println("CURRENT VISITORS:");
+                visit.printVisitorList();
+                System.out.println("Please select an option:");
+                System.out.println("1. Add visitors");
+                System.out.println("2. Delete visitors");
+                System.out.print(">> ");
+                int subOption = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (subOption) {
+                    case 1:
+                        Visitante visitor = null;
+                        System.out.println("Please enter the visitors to add:");
+                        System.out.println("Type 'exit' when finished");
+                        String name, lastName;
+
+                        while(true){
+                            System.out.print("First Name: ");
+                            name = scanner.nextLine();
+                            System.out.print("Last Name: ");
+                            lastName = scanner.nextLine();
+
+                            if(name.equalsIgnoreCase("exit") || lastName.equalsIgnoreCase("exit")){
+                                break;
+                            }
+
+                            for (int i = 0; i < visitorList.size(); i++) {
+                                if(name.equalsIgnoreCase(visitorList.get(i).getName()) && lastName.equalsIgnoreCase(visitorList.get(i).getLastName())){
+                                    visitor = visitorList.get(i); // Guarda al visitante en UNA VARIABLE NUEVA
+                                    System.out.println("Visitor found!");
+                                    newVisitors.add(visitor);
+                                    System.out.println("The user " + visitor.getFullName() + " was added to the visit!");
+                                    break;
+                                }
+                            }
+                            if(visitor==null){
+                                System.out.println("The entered visitor was not found. Please enter a valid visitor...");
+                            }else{
+                                break;
+                            }
+                        }
+
+                        visit.addVisitors(newVisitors);
+                        visitList.add(visit);
+                        System.out.println("All the new visitors have been registered!");
+                        returnToMainMenu();
+
+                        break;
+
+                    case 2: //remove visitors
+                        Visitante visitorToRemove = searchVisitor(false);
+                        System.out.println("Are you sure you want to delete this visitor? (y/n)");
+                        System.out.print(">> ");
+                        char ynOption = scanner.nextLine().charAt(0);
+                        boolean answer = yesOrNo(ynOption);
+                        if(answer){
+                            visit.getVisitorList().remove(visitorToRemove);
+                            System.out.println("The visitor was removed from the visitor list");
+                        }else{
+                            System.out.println("The visitor was not removed from the visitor list!");
+                        }
+                        visitList.add(visit);
+                        returnToMainMenu();
+                        break;
+                
+                    default:
+                        break;
+                }
+
+                break;
+
+            case 3: //modificar fecha
+                System.out.println("CURRENT DATE: " + visit.getVisitDate().toString());
+                System.out.println("Please enter the new date (ONLY WITH NUMBERS)");
+                LocalDate newDate = askForDate();
+                visit.setVisitDate(newDate);
+                System.out.println("The visit date was succesfully changed to " + visit.getVisitDate().toString());
+                visitList.add(visit);
+                returnToMainMenu();
+                break;
+        
+            default:
+                break;
+        }
+    }
+
     public void consultEmployee(){
         Empleado employee = searchEmployee(false);
         System.out.println(employee.getName() + " " + employee.getLastName() + "'s data:");
@@ -684,6 +845,12 @@ public class Zoo {
     public void consultAnimal(){
         Animal animal = searchAnimal(false);
         animal.getInfo();
+        returnToMainMenu();
+    }
+
+    public void consultVisit(){
+        Visita visit = searchVisit(false);
+        visit.getVisitInfo();
         returnToMainMenu();
     }
 
@@ -717,7 +884,7 @@ public class Zoo {
 
     public void deleteAnimal(){
         Animal animal = searchAnimal(false);
-        System.out.println("Are you sure you want to delete this animal");
+        System.out.println("Are you sure you want to delete this animal?");
         char option = scanner.nextLine().charAt(0);
         boolean answer = yesOrNo(option);
         if(answer){
@@ -729,4 +896,17 @@ public class Zoo {
         returnToMainMenu();
     }
 
+    public void deleteVisit(){
+        Visita visit = searchVisit(false);
+        System.out.println("Are you sure you want to delete his visit?");
+        char option = scanner.nextLine().charAt(0);
+        boolean answer = yesOrNo(option);
+        if(answer){
+            visitList.remove(visit);
+            System.out.println("The visit was succesfully removed");
+        }else{
+            System.out.println("The visit was not deleted");
+        }
+        returnToMainMenu();
+    }
 }

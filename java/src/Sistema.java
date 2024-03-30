@@ -12,7 +12,7 @@ public class Sistema {
 
     public void runProgram(){
         zoo.setToEmpList(new Empleado("Jorge", "Puebla", LocalDate.of(2000, 2, 23), "PBJ000223HMNXXXXXX", 123456, 12000, "7:00 AM", "2:00 PM", LocalDate.of(2020, 2, 25), "Guide"));
-        zoo.setToVisitorList(new Visitante("Paquito", "El Chato", LocalDate.of(2000, 02, 15), "CURPCHINGONAXD", LocalDate.of(2020, 12, 15)));
+        zoo.setToVisitorList(new Visitante("Paquito", "El Chato", LocalDate.of(2010, 02, 15), "CURPCHINGONAXD", LocalDate.of(2020, 12, 15)));
         zoo.setToAnimalList(new Animal("Monkey", LocalDate.of(2010, 5, 25), LocalDate.of(2020, 2, 23), 25, null, "2 hours", "Vegetables and raw meat", false));
 
         int option=0;
@@ -76,8 +76,7 @@ public class Sistema {
                                         break;
 
                                 case 4:
-                                        //TO DO
-                                        //zoo.modifyVisit();
+                                        zoo.modifyVisit();
                                         break;
                         
                                 default:
@@ -110,8 +109,7 @@ public class Sistema {
                                         break;
                                 
                                 case 4:
-                                        //TO DO:
-                                        //zoo.deleteVisit();
+                                        zoo.deleteVisit();
                                         break;
                         
                                 default:
@@ -144,8 +142,7 @@ public class Sistema {
                                         break;
                                 
                                 case 4:
-                                        //TO DO
-                                        //zoo.consultVisit();
+                                        zoo.consultVisit();
                                         break;
                         
                                 default:

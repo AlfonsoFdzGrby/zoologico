@@ -46,4 +46,8 @@ public class Visitante extends Usuario {
         System.out.println(" * Registration date: " + fechaDeRegistro.toString());
     }
 
+    public String getFullName(){
+        return name + " " + lastName;
+    }
+
 }
