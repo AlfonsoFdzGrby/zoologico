@@ -14,7 +14,7 @@ public class Sistema {
         zoo.setToEmpList(new Empleado("Jorge", "Puebla", LocalDate.of(2000, 2, 23), "PBJ000223HMNXXXXXX", 123456, 12000, "7:00 AM", "2:00 PM", LocalDate.of(2020, 2, 25), "Guide"));
         zoo.setToVisitorList(new Visitante("Paquito", "El Chato", LocalDate.of(2000, 02, 15), "CURPCHINGONAXD", LocalDate.of(2020, 12, 15)));
         zoo.setToAnimalList(new Animal("Monkey", LocalDate.of(2010, 5, 25), LocalDate.of(2020, 2, 23), 25, null, "2 hours", "Vegetables and raw meat", false));
-        
+
         int option=0;
 
         do {
@@ -23,9 +23,9 @@ public class Sistema {
             System.out.println("2. Register visitor");
             System.out.println("3. Register visit");
             System.out.println("4. Register animal");
-            System.out.println("5. Modify (Employee, visitor, or animal)");
-            System.out.println("6. Delete (Employee, visitor, or animal)");
-            System.out.println("7. Consult (Employee, visitor or animal)");
+            System.out.println("5. Modify (Employee, visitor, animal or visit)");
+            System.out.println("6. Delete (Employee, visitor, animal or visit)");
+            System.out.println("7. Consult (Employee, visitor, animal or visit)");
             System.out.println("8. Exit");
             System.out.print(">> ");
             option=scanner.nextInt();
@@ -52,12 +52,13 @@ public class Sistema {
                         break;
 
                 case 5:
-                        printHeader("MODIFY (Employee, Visitor or Animal)");
+                        printHeader("MODIFY (Employee, visitor, animal or visit)");
                         System.out.println("Please enter the element to modify: ");
                         System.out.println("1. Employee");
                         System.out.println("2. Visitor");
                         System.out.println("3. Animal");
-                        System.out.println("4. Return to main menu");
+                        System.out.println("4. Visit");
+                        System.out.println("5. Return to main menu");
                         int subOption = scanner.nextInt();
                         scanner.nextLine();
 
@@ -73,21 +74,25 @@ public class Sistema {
                                 case 3:
                                         zoo.modifyAnimal();
                                         break;
+
+                                case 4:
+                                        //TO DO
+                                        //zoo.modifyVisit();
+                                        break;
                         
                                 default:
                                         break;
                         }
-
-                        //zoo.modify();
                         break;
                 
                 case 6:
-                        printHeader("DELETE (Employee, Visitor or Animal)");
+                        printHeader("DELETE (Employee, visitor, animal or visit)");
                         System.out.println("Please enter the element to delete");
                         System.out.println("1. Employee");
                         System.out.println("2. Visitor");
                         System.out.println("3. Animal");
-                        System.out.println("4. Return to main menu");
+                        System.out.println("4. Visit");
+                        System.out.println("5. Return to main menu");
                         int subOption3 = scanner.nextInt();
                         scanner.nextLine();
 
@@ -103,6 +108,11 @@ public class Sistema {
                                 case 3:
                                         zoo.deleteAnimal();
                                         break;
+                                
+                                case 4:
+                                        //TO DO:
+                                        //zoo.deleteVisit();
+                                        break;
                         
                                 default:
                                         break;
@@ -110,12 +120,13 @@ public class Sistema {
                         break;
                 
                 case 7:
-                        printHeader("CONSULT (Employee, Visitor or Animal)");
+                        printHeader("CONSULT (Employee, visitor, animal or visit)");
                         System.out.println("Please enter the element to consult: ");
                         System.out.println("1. Employee");
                         System.out.println("2. Visitor");
                         System.out.println("3. Animal");
-                        System.out.println("4. Return to main menu");
+                        System.out.println("4. Visit");
+                        System.out.println("5. Return to main menu");
                         int subOption2 = scanner.nextInt();
                         scanner.nextLine();
 
@@ -130,6 +141,11 @@ public class Sistema {
 
                                 case 3:
                                         zoo.consultAnimal();
+                                        break;
+                                
+                                case 4:
+                                        //TO DO
+                                        //zoo.consultVisit();
                                         break;
                         
                                 default:
