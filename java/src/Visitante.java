@@ -1,16 +1,24 @@
-
+import java.time.LocalDate;
 
 public class Visitante extends Usuario {
-    int numVisitas;
-    String fechaDeRegistro;
+    int numVisitas = 0;
+    LocalDate fechaDeRegistro;
     
-    public Visitante(String nombre, String apellidos, String diaDeNacimiento, String mesDeNacimiento,
-            String añoDeNacimiento, String curp, String fechaDeRegistro) {
-        super(nombre, apellidos, diaDeNacimiento, mesDeNacimiento, añoDeNacimiento, curp);
+    public Visitante(String name, String lastName, LocalDate birthDate, String cURP,
+            LocalDate fechaDeRegistro) {
+        super(name, lastName, birthDate, cURP);
         this.fechaDeRegistro = fechaDeRegistro;
     }
 
     public void añadirVisita(){
         numVisitas++;
     }
+
+    public void getInfo(){
+        System.out.println(" * Name: " + name + " " + lastName);
+        System.out.println(" * Birth Date: " + birthDate.toString());
+        System.out.println(" * CURP: " + CURP);
+        System.out.println(" * Registration date: " + fechaDeRegistro.toString());
+    }
+
 }
