@@ -46,12 +46,14 @@ class Zoo:
         entry_time = input("Enter employee's start time (HH:MM): ")
         end_time = input("Enter employee's end time (HH:MM): ")
         role = input("Enter employee's role: (Veterinarian, Guide, Maintenance, Administration): ").lower().capitalize()
-
-        employee = Employee(name, last_name, datetime.strptime(birth_date, '%d/%m/%Y'),
-                            datetime.strptime(hire_date, '%d/%m/%Y'), rfc, curp,
-                            salary, datetime.strptime(entry_time, '%H:%M').time(),
-                            datetime.strptime(end_time, '%H:%M').time(), role)
-        self.add_employee(employee)
+        if role in Employee.ROLES:
+            employee = Employee(name, last_name, datetime.strptime(birth_date, '%d/%m/%Y'),
+                                datetime.strptime(hire_date, '%d/%m/%Y'), rfc, curp,
+                                salary, datetime.strptime(entry_time, '%H:%M').time(),
+                                datetime.strptime(end_time, '%H:%M').time(), role)
+            self.add_employee(employee)
+        else:
+            print("Invalid role. Employee registration failed.")
 
     def list_employees(self):
         if not self.employee_list:
@@ -259,7 +261,14 @@ class Zoo:
         return self.maintenance_list
 
     def register_maintenance(self):
-        responsible_employee = input("Enter the responsible employee's name: ")
+        responsible_employee_rfc = input("Enter the responsible employee's RFC: ")
+        responsible_employee = next((emp for emp in self.employee_list if emp.rfc == responsible_employee_rfc), None)
+        if responsible_employee is None:
+            print("No employee found with the provided RFC.")
+            return
+        if responsible_employee.role != "Maintenance":
+            print("The employee does not have the 'Maintenance' role.")
+            return
         animal_id = input("Enter the ID of the animal or zoo area: ")
         process_done = input("Enter the process done: ")
         process_date = input("Enter the process date (DD/MM/YYYY): ")

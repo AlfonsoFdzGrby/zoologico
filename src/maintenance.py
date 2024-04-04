@@ -59,7 +59,8 @@ class Maintenance:
     def print_observation_list(self):
         print("CURRENT OBSERVATIONS:")
         for i, observation in enumerate(self.observations, start=1):
-            print(f"   * Observation #{i}: {observation}")
+            formatted_observation = observation.strip().capitalize()
+            print(f"   * Observation #{i}: {formatted_observation}")
 
     def print_info(self):
         print("MAINTENANCE RECORD INFO:")
