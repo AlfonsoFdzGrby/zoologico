@@ -82,7 +82,7 @@ class Animal:
             for disease in cleaned_diseases:  # Iterate over cleaned_diseases
                 print("    *", disease)
         else:
-            print(" * Diseases: None")
+            print(" * Diseases: ")
 
         print(" * Feeding Frequency:", self.feeding_frequency)
         print(" * Feeding Type:", self.feeding_type)

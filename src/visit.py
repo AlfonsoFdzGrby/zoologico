@@ -1,6 +1,3 @@
-from datetime import datetime
-
-
 class Visit:
     next_id = 0
 
@@ -90,7 +87,7 @@ class Visit:
         print("   * Visitors:")
         for visitor in self.visitors:
             age = (self.visit_date - visitor.birth_date).days // 365
-            print(f"      - {visitor.get_full_name()}, Age: {age}, ")
+            print(f"      - {visitor.get_full_name()}, Age: {age}")
         print("   * Tickets:")
         print("     * Children ($50 MXN):")
         print("       * Number of children:", self.num_children)
