@@ -11,9 +11,6 @@ class Maintenance:
         self.process_date = process_date
         self.observations = observations
 
-    def get_id(self):
-        return self.id
-
     def get_employee_in_charge(self):
         return self.employee_in_charge
 
@@ -34,9 +31,6 @@ class Maintenance:
 
     def get_id(self):
         return self.id
-
-    def set_id(self, id):
-        self.id = id
 
     def get_process_performed(self):
         return self.process_performed
@@ -66,9 +60,6 @@ class Maintenance:
         print("CURRENT OBSERVATIONS:")
         for i, observation in enumerate(self.observations, start=1):
             print(f"   * Observation #{i}: {observation}")
-
-    def remove_from_observation_list(self, id):
-        del self.observations[id]
 
     def print_info(self):
         print("MAINTENANCE RECORD INFO:")

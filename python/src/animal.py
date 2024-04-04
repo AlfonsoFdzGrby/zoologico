@@ -76,14 +76,14 @@ class Animal:
         print(" * Weight:", self.weight)
 
         if self.diseases:
+            # Clean up any spaces and capitalize
+            cleaned_diseases = [disease.strip().capitalize() for disease in self.diseases]
             print(" * Diseases:")
-            for disease in self.diseases:
-                print("    -", disease)
+            for disease in cleaned_diseases:  # Iterate over cleaned_diseases
+                print("    *", disease)
         else:
             print(" * Diseases: None")
 
         print(" * Feeding Frequency:", self.feeding_frequency)
         print(" * Feeding Type:", self.feeding_type)
         print(" * Vaccinated:", "Yes" if self.is_vaccinated else "No")
-
-

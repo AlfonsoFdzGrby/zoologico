@@ -33,7 +33,15 @@ class Zoo:
         birth_date = input("Enter employee's birth date (DD/MM/YYYY): ")
         hire_date = input("Enter employee's hire date (DD/MM/YYYY): ")
         rfc = input("Enter employee's RFC: ")
+        for employee in self.employee_list:
+            if employee.rfc == rfc:
+                print("The entered RFC is already registered for another employee.")
+                return
         curp = input("Enter employee's CURP: ")
+        for employee in self.employee_list:
+            if employee.curp == curp:
+                print("The entered CURP is already registered for another employee.")
+                return
         salary = float(input("Enter employee's salary: "))
         entry_time = input("Enter employee's start time (HH:MM): ")
         end_time = input("Enter employee's end time (HH:MM): ")
@@ -45,17 +53,15 @@ class Zoo:
                             datetime.strptime(end_time, '%H:%M').time(), role)
         self.add_employee(employee)
 
-
     def list_employees(self):
         if not self.employee_list:
             print("There are no registered employees.")
             return
-        
+
         print("Registered employees:")
         for employee in self.employee_list:
             employee.get_info()
             print("---------------------------------------------------")
-
 
     def modify_employee(self):
         emp_rfc = input("Enter the RFC of the employee you want to modify: ")
@@ -64,7 +70,7 @@ class Zoo:
         if employee is None:
             print(f"Employee with RFC {emp_rfc} not found.")
             return
-        else: 
+        else:
             print("Employee found. Please provide new details.")
 
         while True:
@@ -82,34 +88,53 @@ class Zoo:
             print("11. Return to main menu")
 
             choice = input("Enter your choice: ")
-            
+
             if choice == '1':
                 employee.name = input("Enter the new name: ")
+                print("Employee's name updated successfully.")
             elif choice == '2':
                 employee.last_name = input("Enter the new last name: ")
+                print("Employee's last name updated successfully.")
             elif choice == '3':
                 employee.birth_date = datetime.strptime(input("Enter the new birth date (DD/MM/YYYY): "), '%d/%m/%Y')
+                print("Employee's birth date updated successfully.")
             elif choice == '4':
                 employee.hire_date = datetime.strptime(input("Enter the new hire date (DD/MM/YYYY): "), '%d/%m/%Y')
+                print("Employee's hire date updated successfully.")
             elif choice == '5':
-                employee.rfc = input("Enter the new RFC: ")
-            elif choice == '5':
-                employee.curp = input("Enter the new CURP: ")
+                new_rfc = input("Enter the new RFC: ")
+                if not any(e.rfc == new_rfc for e in self.employee_list if e != employee):
+                    employee.rfc = new_rfc
+                    print("Employee's RFC updated successfully.")
+                else:
+                    print("The RFC is already in use.")
+            elif choice == '6':
+                new_curp = input("Enter the new CURP: ")
+                if not any(e.curp == new_curp for e in self.employee_list if e != employee):
+                    employee.curp = new_curp
+                    print("Employee's CURP updated successfully.")
+                else:
+                    print("The CURP is already in use.")
             elif choice == '7':
                 employee.salary = float(input("Enter the new salary: "))
+                print("Employee's salary updated successfully.")
             elif choice == '8':
                 employee.entry_time = datetime.strptime(input("Enter the new start time (HH:MM): "), '%H:%M').time()
+                print("Employee's entry time updated successfully.")
             elif choice == '9':
                 employee.end_time = datetime.strptime(input("Enter the new end time (HH:MM): "), '%H:%M').time()
+                print("Employee's end time updated successfully.")
             elif choice == '10':
-                employee.role = input("Enter the new role: ")
+                new_role = input("Enter the new role (Veterinarian, Guide, Maintenance, Administration): ")
+                if new_role in Employee.ROLES:
+                    employee.role = new_role
+                    print("Employee's role updated successfully.")
+                else:
+                    print("Invalid role. Role update failed.")
             elif choice == '11':
                 break
             else:
                 print("Invalid choice. Please try again.")
-            
-            print("Employee details updated successfully.")
-
 
     def delete_employee(self):
         emp_rfc = input("Enter the RFC of the employee you want to delete: ")
@@ -147,17 +172,15 @@ class Zoo:
                         feeding_frequency, feeding_type, vaccinated)
         self.add_animal(animal)
 
-
     def list_animals(self):
         if not self.animal_list:
             print("There are no registered animals.")
             return
-        
+
         print("Registered animals:")
         for animal in self.animal_list:
             animal.get_info()
             print("---------------------------------------------------")
-
 
     def modify_animal(self):
         animal_id = input("Enter the ID of the animal you want to modify: ")
@@ -182,32 +205,37 @@ class Zoo:
             print("9. Return to main menu")
 
             choice = input("Enter your choice: ")
-            
+
             if choice == '1':
                 animal.animal_type = input("Enter the new animal type: ")
+                print("Animal type updated successfully.")
             elif choice == '2':
                 animal.birth_date = datetime.strptime(input("Enter the new birth date (DD/MM/YYYY): "), '%d/%m/%Y')
+                print("Animal birth date updated successfully.")
             elif choice == '3':
                 animal.arrival_date = datetime.strptime(input("Enter the new arrival date (DD/MM/YYYY): "), '%d/%m/%Y')
+                print("Animal arrival date updated successfully.")
             elif choice == '4':
                 animal.weight = float(input("Enter the new weight: "))
+                print("Animal weight updated successfully.")
             elif choice == '5':
                 diseases_input = input("Enter the new list of diseases (comma separated): ")
                 animal.diseases = diseases_input.split(",") if diseases_input else []
+                print("Animal diseases updated successfully.")
             elif choice == '6':
                 animal.feeding_frequency = input("Enter the new feeding frequency: ")
+                print("Animal feeding frequency updated successfully.")
             elif choice == '7':
                 animal.feeding_type = input("Enter the new feeding type: ")
+                print("Animal feeding type updated successfully.")
             elif choice == '8':
                 vaccination_input = input("Is the animal vaccinated? (yes/no): ").lower()
                 animal.is_vaccinated = True if vaccination_input == "yes" else False
+                print("Animal vaccinated updated successfully.")
             elif choice == '9':
                 break
             else:
                 print("Invalid choice. Please try again.")
-            
-            print("Animal details updated successfully.")
-
 
     def delete_animal(self):
         animal_id = input("Enter the ID of the animal you want to delete: ")
@@ -245,7 +273,7 @@ class Zoo:
         if not self.maintenance_list:
             print("There are no maintenance records.")
             return
-        
+
         print("Maintenance records:")
         for maintenance in self.maintenance_list:
             maintenance.print_info()
@@ -303,7 +331,7 @@ class Zoo:
 
     def get_visits(self):
         return self.visit_list
-    
+
     def is_visitor_registered(self, name):
         for visitor in self.visitor_list:
             if visitor.get_full_name() == name:
@@ -311,68 +339,53 @@ class Zoo:
         return False
 
     def add_visit(self, visit):
-        # Validar si los visitantes están registrados
-        if not all(self.is_visitor_registered(visitor) for visitor in visit.visitors):
-            print("One or more visitors are not registered. Unable to register visit.")
-            return
-        
         if isinstance(visit, Visit):
             self.visit_list.append(visit)
             print("Visit registered successfully!")
         else:
             print("Invalid visit data. Unable to register.")
 
-    
     def register_visit(self):
         guide_name = input("Enter guide's name: ")
         guide_last_name = input("Enter guide's last name: ")
-        visitor_names = input("Enter visitor's full names: (separate the names using commas ',') ").split(',')
+
+        # Validate if guide exists and has the correct role
+        guide_exists = any(emp for emp in self.employee_list if
+                           emp.name == guide_name and emp.last_name == guide_last_name and emp.role.lower() == "guide")
+        if not guide_exists:
+            print("Guide does not exist or is not assigned the 'Guide' role.")
+            return
+
+        visitor_names_input = input("Enter visitor's full names: (separate the names using commas ',') ")
+        # Extract visitor names and strip whitespace
+        visitor_names = [full_name.strip() for full_name in visitor_names_input.split(',')]
+        # Check if all visitors are registered
+        registered_visitors = []
+        for full_name in visitor_names:
+            visitor = next((v for v in self.visitor_list if f"{v.name} {v.last_name}" == full_name), None)
+            if visitor:
+                registered_visitors.append(visitor)
+            else:
+                print(f"Visitor '{full_name}' is not registered.")
+                return
+
         visit_date = input("Enter the visit date (DD/MM/YYYY): ")
 
-        # Check if guide exists
-        guide_exists = False
-        for employee in self.employee_list:
-            if employee.name == guide_name and employee.last_name == guide_last_name and employee.role == "Guide":
-                guide_exists = True
-                break
-        if not guide_exists:
-            print("Guide does not exist.")
-            return
-
-        # Validate if all visitors are registered
-        registered_visitors = []
-        all_visitors_registered = True
-        for name in visitor_names:
-            name = name.strip()
-            visitor_registered = False
-            for visitor in self.visitor_list:
-                if f"{visitor.name} {visitor.last_name}" == name:
-                    registered_visitors.append(visitor)
-                    visitor_registered = True
-                    break
-            if not visitor_registered:
-                print(f"Visitor '{name}' is not registered.")
-                all_visitors_registered = False
-
-        if not all_visitors_registered:
-            return
-
-        # Register the visit if guide exists and all visitors are registered
+        # If all checks pass, register the visit
         visit = Visit(guide_name, guide_last_name, registered_visitors, datetime.strptime(visit_date, '%d/%m/%Y'))
-        self.visit_list.append(visit)
-        for visitor in registered_visitors:
-            visitor.increase_visits()  # Increase visit count for each visitor
-        print("Visit registered successfully!")
+        visit.calculate_total_visits()
+        visit.calculate_total_cost()
+        self.add_visit(visit)
 
     def list_visits(self):
         if not self.visit_list:
             print("There are no registered visits.")
             return
-        
-        print("Registered visits:")
-        for visit in self.visit_list:
-            visit.get_visit_info()
-            print("---------------------------------------------------")
+        else:
+            print("Registered visits:")
+            for visit in self.visit_list:
+                visit.get_visit_info()
+                print("---------------------------------------------------")
 
     '''
 
@@ -463,6 +476,10 @@ class Zoo:
         last_name = input("Enter visitor's last name: ")
         birth_date = input("Enter visitor's birth date (DD/MM/YYYY): ")
         curp = input("Enter visitor's CURP: ")
+        if any(visitor.curp == curp for visitor in self.visitor_list):
+            print("The CURP is already registered for another visitor.")
+            return
+
         registration_date = input("Enter visitor's register date (DD/MM/YYYY): ")
 
         visitor = Visitor(name, last_name, datetime.strptime(birth_date, '%d/%m/%Y'), curp,
@@ -473,13 +490,11 @@ class Zoo:
         if not self.visitor_list:
             print("There are no registered visitors.")
             return
-        
+
         print("Registered visitors:")
         for visitor in self.visitor_list:
             visitor.get_info()
             print("---------------------------------------------------")
-
-
 
     def modify_visitor(self):
         visitor_curp = input("Enter the CURP of the visitor you want to modify: ")
@@ -503,20 +518,29 @@ class Zoo:
 
             if choice == '1':
                 visitor.name = input("Enter the new name: ")
+                print("Visitor's name updated successfully.")
             elif choice == '2':
                 visitor.last_name = input("Enter the new last name: ")
+                print("Visitor's last name updated successfully.")
             elif choice == '3':
                 visitor.birth_date = datetime.strptime(input("Enter the new birth date (DD/MM/YYYY): "), '%d/%m/%Y')
+                print("Visitor's birth date updated successfully.")
             elif choice == '4':
-                visitor.curp = input("Enter the new CURP: ")
+                new_curp = input("Enter the new CURP: ")
+                # Validate the new CURP
+                if not any(v.curp == new_curp for v in self.visitor_list if v != visitor):
+                    visitor.curp = new_curp
+                    print("Visitor's CURP updated successfully.")
+                else:
+                    print("The new CURP is already in use.")
             elif choice == '5':
-                visitor.registration_date = datetime.strptime(input("Enter the new registration date date (DD/MM/YYYY): "), '%d/%m/%Y')
+                visitor.registration_date = datetime.strptime(
+                    input("Enter the new registration date (DD/MM/YYYY): "), '%d/%m/%Y')
+                print("Visitor's registration date updated successfully.")
             elif choice == '6':
                 break
             else:
                 print("Invalid choice. Please try again.")
-
-            print("Visitor details updated successfully.")
 
     def delete_visitor(self):
         visitor_curp = input("Enter the CURP of the visitor you want to delete: ")

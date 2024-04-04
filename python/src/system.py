@@ -88,7 +88,7 @@ class System:
             elif option == 3:
                 print("********************************************************")
                 print("MODIFY (Employee, visitor, visit, animal or maintenance)")
-                print("********************************************************")                
+                print("********************************************************")
                 sub_option = int(input("Please enter the element to modify: "
                                        "\n1. Employee"
                                        "\n2. Visitor"
