@@ -20,9 +20,6 @@ class Maintenance:
     def get_employee_names(self):
         return self.employee_in_charge.get_full_name()
 
-    def get_animal_kind(self):
-        return self.animal.get_kind()
-
     def get_animal(self):
         return self.animal
 

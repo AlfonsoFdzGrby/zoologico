@@ -27,12 +27,6 @@ class Visit:
     def set_visitors(self, visitors):
         self.visitors = visitors
 
-    def add_visitors(self, visitors):
-        if self.visitors:
-            self.visitors.extend(visitors)
-        else:
-            self.visitors = visitors
-
     def get_total_cost(self):
         return self.total_cost
 

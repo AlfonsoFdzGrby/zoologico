@@ -52,9 +52,6 @@ class Employee(User):
     def set_role(self, value):
         self.role = value
 
-    def get_schedule(self):
-        return f"From {self.entry_time} to {self.end_time}"
-
     def get_info(self):
         print(" * Name:", self.name, self.last_name)
         print(" * Birth Date:", self.birth_date)
