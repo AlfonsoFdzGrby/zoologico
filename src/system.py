@@ -10,8 +10,6 @@ from zoo import Zoo
 class System:
     def __init__(self):
         self.zoo = Zoo("password")
-        self.zoo.add_employee(Employee("John", "Smith", datetime(2000, 11, 24), datetime(2023, 12, 15), "RFCPRO", "PROCURP", 25000, datetime.strptime("08:00", '%H:%M').time(), datetime.strptime("14:00", '%H:%M').time(), "Guide"))
-        self.zoo.add_visitor(Visitor("Lars", "Pro", datetime(2001, 7, 5), "CURPXD", datetime(2024, 12, 4)))
 
     def execute(self):
 
@@ -87,7 +85,7 @@ class System:
 
             elif option == 3:
                 print("********************************************************")
-                print("MODIFY (Employee, visitor, visit, animal or maintenance)")
+                print("MODIFY (Employee, visitor or animal)")
                 print("********************************************************")
                 sub_option = int(input("Please enter the element to modify: "
                                        "\n1. Employee"
@@ -108,7 +106,7 @@ class System:
 
             elif option == 4:
                 print("********************************************************")
-                print("DELETE (Employee, visitor, visit, animal or maintenance)")
+                print("DELETE (Employee, visitor or animal)")
                 print("********************************************************")
                 sub_option = int(input("Please enter the element to delete: "
                                        "\n1. Employee"

@@ -269,13 +269,20 @@ class Zoo:
         if responsible_employee.role != "Maintenance":
             print("The employee does not have the 'Maintenance' role.")
             return
-        animal_id = input("Enter the ID of the animal or zoo area: ")
+        
+        animal_id = input("Enter the ID of the animal: ")
+        animal_exists = any(a for a in self.animal_list if str(a.get_id()) == animal_id)
+
+        if not animal_exists:
+            print("No animal found with the provided ID.")
+            return
+
         process_done = input("Enter the process done: ")
         process_date = input("Enter the process date (DD/MM/YYYY): ")
         observations = input("Enter observations: (separate the names using commas ',') ").split(',')
 
         maintenance = Maintenance(responsible_employee, animal_id, process_done,
-                                  datetime.strptime(process_date, '%d/%m/%Y'), observations)
+                                    datetime.strptime(process_date, '%d/%m/%Y'), observations)
         self.add_maintenance(maintenance)
 
     def list_maintenance(self):
